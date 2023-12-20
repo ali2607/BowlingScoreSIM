@@ -93,7 +93,7 @@
         "projectName": "BowlingScore",
         "projectPath": "C:\\Users\\AM272069\\source\\repos\\BowlingScoreSIMU\\src\\BowlingScore\\BowlingScore.csproj",
         "packagesPath": "C:\\Users\\AM272069\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AM272069\\Source\\Repos\\BowlingScoreSIMU\\src\\BowlingScore\\obj\\",
+        "outputPath": "C:\\Users\\AM272069\\source\\repos\\BowlingScoreSIMU\\src\\BowlingScore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
