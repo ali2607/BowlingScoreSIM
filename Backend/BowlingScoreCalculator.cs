@@ -4,7 +4,7 @@ class Program
 {
     static void Main()
     {
-        GameManager gm1 = new GameManager(2,1);
+        GameManager gm1 = new GameManager(2,3);
         Console.WriteLine($"New game started with {gm1.Players.Count} players and {gm1.NumberOfRounds} rounds.");
         foreach (Player player in gm1.Players)
         {
@@ -18,11 +18,11 @@ class GameManager
 {
     private List<Player> players;
     private int numberOfRounds;
-    private List<List<Tuple<int, int>>> scores;
+    private List<List<int>> scores;
 
     public List<Player> Players
     {
-        get { return players; }
+        get => players;
     }
     //Getter - Setter for number of round
     
@@ -153,7 +153,7 @@ class Player
         if(score_1<10)
         {
         Console.WriteLine("Roll 2: ");
-        while (!int.TryParse(Console.ReadLine(), out score_2) || score_2 < 0 || score_2 > 10)
+        while (!int.TryParse(Console.ReadLine(), out score_2) || score_2 < 0 || score_2+score_1 > 10)
         {
             Console.WriteLine("Invalid input. Please enter a score between 0 and 10.");
             Console.Write("Enter the score for the second roll: ");
@@ -180,6 +180,6 @@ class BowlingGame
     public int CalculateRoundScore()
     {
         // Implement the logic to calculate the current round score
-        return (pins_1,pins_2);
+        return pins_1+pins_2;
     }
 }
