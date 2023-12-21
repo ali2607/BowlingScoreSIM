@@ -14,12 +14,12 @@ class Program
         
     }
 }
+
 class GameManager
 {
-    private List<Player> players;
     private int numberOfRounds;
     private List<List<int>> scores;
-    public List<Player> Players => players;
+    public List<Player> Players {get;}
     //Getter - Setter for number of round
     
     public int NumberOfRounds
@@ -29,16 +29,16 @@ class GameManager
         {
             if (value > 0)
             {
-                numberOfRounds = value;
+                return value;
             }
             else
             {
-                Console.WriteLine("Number of rounds must be greater than 0.");
+                throw new ArgumentException("Number of rounds must be greater than 0.", value)
             }
         }
     }
 
-    //Constructor
+    //Constructeur
     public GameManager(int numberOfPlayers, int rounds = 10)
     {
         numberOfRounds = rounds;
@@ -49,10 +49,10 @@ class GameManager
 
     private void InitializePlayers(int numberOfPlayers)
     {
-        players = new List<Player>();
+        Players = new List<Player>();
         for (int i = 1; i <= numberOfPlayers; i++)
         {
-            players.Add(new Player($"Player {i}"));
+            Players.Add(new Player($"Player {i}"));
         }
     }
     private void InitializeScores(int numberOfPlayers)
@@ -77,9 +77,9 @@ class GameManager
         {
             Console.WriteLine($"\nRound {round}:");
 
-            for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
+            for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
             {
-                Player currentPlayer = players[playerIndex];
+                Player currentPlayer = Players[playerIndex];
                 Console.WriteLine($"{currentPlayer.Name}'s turn:");
                 currentPlayer.Roll_1();
                 currentPlayer.Roll_2();
@@ -87,10 +87,11 @@ class GameManager
                 // Update the scores 2D list
                 scores[round - 1][playerIndex] = currentPlayer.CurrentGame.CalculateRoundScore();
             }
+            DisplayFinalScores();
+        
         }
 
         Console.WriteLine("\nGame Over!");
-        DisplayFinalScores();
     }
 
     public void DisplayScores()
@@ -99,9 +100,9 @@ class GameManager
         for (int round = 0; round < numberOfRounds; round++)
         {
             Console.Write($"Round {round + 1}: ");
-            for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
+            for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
             {
-                Console.Write($"{players[playerIndex].Name} - {scores[round][playerIndex]}   ");
+                Console.Write($"{Players[playerIndex].Name} - {scores[round][playerIndex]}   ");
             }
             Console.WriteLine();
         }
@@ -109,16 +110,33 @@ class GameManager
     private void DisplayFinalScores()
     {
         Console.WriteLine("\nFinal Scores:");
-        for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
+        for (int playerIndex = 0; playerIndex < Players.Count; playerIndex++)
         {
             int totalScore = 0;
             for (int round = 0; round < numberOfRounds; round++)
             {
                 totalScore += scores[round][playerIndex];
             }
-            Console.WriteLine($"{players[playerIndex].Name}: {totalScore}");
+            Console.WriteLine($"{Players[playerIndex].Name}: {totalScore}");
         }
     }
+    public void DeletePlayer(Player player)
+    {
+        Players.Remove(player);
+    }
+    public void ResetGame()
+    {
+        foreach(Player player in Players)
+        {
+            Players.Remove(player);
+        }
+    }
+    public void EndGame()
+    {
+        DisplayFinalScores();
+
+    }
+
 }
 
 class Player
@@ -158,7 +176,12 @@ class Player
         CurrentGame.Roll_2(score_2);
         }
     }
+    void RenamePlayer(string newName)
+    {
+        Name = newName;
+    }
 }
+
 class BowlingGame
 {
     private int pins_1, pins_2;

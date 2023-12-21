@@ -6,3 +6,8 @@ BRAINSTORMING
 -> Spare : / ->10pt +  Double le prochain lancé 
 
 -> Rien : nb de quille tombé
+
+
+TEST: 
+- Constructeur GameManager: 
+Entrée: nombre de joueurs et nombre de round : par défaut round = 10
