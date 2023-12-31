@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+
 html {
   font-size: 14px;
 }
@@ -15,8 +18,15 @@ html {
 html {
   position: relative;
   min-height: 100%;
+
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url('../images/BowlingBackground.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Oswald', sans-serif; 
 }

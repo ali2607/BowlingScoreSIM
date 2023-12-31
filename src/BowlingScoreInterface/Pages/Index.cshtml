@@ -4,7 +4,57 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <h1 class="text-center my-4 mb-5"><strong>Bowling Score</strong></h1>
+    <div class="row" style="font-size:xx-large">
+        <div class="col-auto mb-3">
+            <label><strong>Amount of rounds:</strong></label>
+        </div>
+        <div class="col-auto mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button" id="button-minus"><b>-</b></button>
+                </div>
+                <input type="number" tabindex="-1" class="form-control btn-outline-secondary " id="roundsInput" value="1" min="1" max="10" style="background-color:transparent;color:white;" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-plus"><b>+</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('button-minus').addEventListener('click', function () {
+            var input = document.getElementById('roundsInput');
+            var currentValue = parseInt(input.value, 10);
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        });
+
+        document.getElementById('button-plus').addEventListener('click', function () {
+            var input = document.getElementById('roundsInput');
+            var currentValue = parseInt(input.value, 10);
+            if (currentValue < 10) {
+                input.value = currentValue + 1;
+            }
+        });
+
+        $(document).ready(function () {
+            $('.hover-delete').hover(
+                function () {
+                    // mouseenter
+                    $(this).data('original-html', $(this).find('.card-text').html());
+                    $(this).find('.card-text').html('<i class="fa-regular fa-circle-xmark"></i>');
+                },
+                function () {
+                    // mouseleave
+                    $(this).find('.card-text').html($(this).data('original-html'));
+                }
+            );
+        });
+
+    </script>
+}
