@@ -1,7 +1,5 @@
-﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+﻿@{
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="container-fluid">
@@ -40,20 +38,6 @@
             if (currentValue < 10) {
                 input.value = currentValue + 1;
             }
-        });
-
-        $(document).ready(function () {
-            $('.hover-delete').hover(
-                function () {
-                    // mouseenter
-                    $(this).data('original-html', $(this).find('.card-text').html());
-                    $(this).find('.card-text').html('<i class="fa-regular fa-circle-xmark"></i>');
-                },
-                function () {
-                    // mouseleave
-                    $(this).find('.card-text').html($(this).data('original-html'));
-                }
-            );
         });
 
     </script>
