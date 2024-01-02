@@ -1,9 +1,33 @@
-﻿@{
+﻿@model HomeModel
+@using System.Text.Json
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="container-fluid">
     <h1 class="text-center my-4 mb-5"><strong>Bowling Score</strong></h1>
+    <div class="row mb-5" style="font-size:xx-large">
+        <div class="col-auto mb-3">
+            <label><strong>Players:</strong></label>
+        </div>
+        @foreach (var player in Model.Players)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-start">
+                <div class="card player-card mx-2 hover-delete " style="width:100%;">
+                        <div class="card-body text-center">
+                            <p class="card-text">@player</p>
+
+                        </div>
+                </div>
+                <i class="fas fa-pencil-alt fa-2xs"></i>
+            </div>
+        }
+        <div class="col-auto mb-3">
+            <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
+                <i class="fa-solid fa-plus"></i> <strong>Add player</strong>
+            </button>
+        </div>
+    </div>
     <div class="row" style="font-size:xx-large">
         <div class="col-auto mb-3">
             <label><strong>Amount of rounds:</strong></label>
@@ -13,7 +37,7 @@
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-secondary" type="button" id="button-minus"><b>-</b></button>
                 </div>
-                <input type="number" tabindex="-1" class="form-control btn-outline-secondary " id="roundsInput" value="1" min="1" max="10" style="background-color:transparent;color:white;" readonly>
+                <input type="number" tabindex="-1" class="form-control btn-outline-secondary " id="roundsInput" value="@Model.NumberOfRounds" min="1" max="10" style="background-color:transparent;color:white;"  readonly>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-plus"><b>+</b></button>
                 </div>
@@ -21,6 +45,34 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPlayerModalLabel">New Player</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="AddPlayer">
+                <div class="modal-body">
+                        <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
+                        <div class="mb-3">
+                            <label for="playerName" class="col-form-label" style="color:black">Player Name:</label>
+                            <input type="text" class="form-control" id="playerName" name="name">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-purple">Add Player</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 @section Scripts {
     <script>
@@ -41,4 +93,5 @@
         });
 
     </script>
+
 }

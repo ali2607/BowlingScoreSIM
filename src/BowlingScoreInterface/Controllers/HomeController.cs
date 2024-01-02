@@ -1,13 +1,14 @@
 using BowlingScoreInterface.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Numerics;
+using System.Text.Json;
 
 namespace BowlingScoreInterface.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -15,7 +16,23 @@ namespace BowlingScoreInterface.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            HomeModel model=new();
+            return View(model);
+        }
+
+        public IActionResult AddPlayer(string home,string name)
+        {
+            HomeModel model;
+            try
+            {
+                model = JsonSerializer.Deserialize<HomeModel>(home) ?? new() ;
+            }
+            catch (JsonException e)
+            {
+                model = new();
+            }
+            model.Players.Add(name);
+            return View(nameof(Index),model);
         }
 
         public IActionResult Privacy()
