@@ -10,16 +10,16 @@
         <div class="col-auto mb-3">
             <label><strong>Players:</strong></label>
         </div>
-        @foreach (var player in Model.Players)
+        @for (int i = 0; i< Model.Players.Count; i++)
         {
             <div class="col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-start">
                 <div class="card player-card mx-2 hover-delete " style="width:100%;">
                         <div class="card-body text-center">
-                            <p class="card-text">@player</p>
+                        <p class="card-text">@Model.Players[i]</p>
 
                         </div>
                 </div>
-                <i class="fas fa-pencil-alt fa-2xs"></i>
+                <a class="edit-player-link" href="" data-index="@i" data-oldName="@Model.Players[i]" data-bs-toggle="modal" data-bs-target="#editPlayerModal"><i class="fas fa-pencil-alt fa-2xs"></i></a>
             </div>
         }
         <div class="col-auto mb-3">
@@ -47,13 +47,13 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+<!-- Modal add new player  -->
+<div class="modal fade" id="addPlayerModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addPlayerModalLabel">New Player</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form method="post" asp-action="AddPlayer">
                 <div class="modal-body">
@@ -73,6 +73,35 @@
 </div>
 
 
+<!-- Modal edit player  -->
+<div class="modal fade" id="editPlayerModal" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPlayerModalLabel">Rename Player</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-action="EditPlayer">
+                <div class="modal-body">
+                    <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
+                    <input type="hidden" name="idRename" />
+                    <div class="mb-3">
+                        <label for="playerName" class="col-form-label" style="color:black">Player Name:</label>
+                        <input type="text" class="form-control" id="oldPlayerName" name="name" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPlayerName" class="col-form-label" style="color:black">New Name:</label>
+                        <input type="text" class="form-control" id="newPlayerName" name="newName">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-purple">Rename</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script>
@@ -94,4 +123,18 @@
 
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('.edit-player-link').click(function () {
+                var index = $(this).attr('data-index');
+                var oldname = $(this).attr('data-oldName');
+
+                console.log(index);
+                console.log(oldname);
+                $('#idRename').val(index);
+                $('#oldPlayerName').val(oldname);
+            });
+        });
+
+    </script>
 }

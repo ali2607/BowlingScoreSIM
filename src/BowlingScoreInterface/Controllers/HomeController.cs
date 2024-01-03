@@ -20,6 +20,7 @@ namespace BowlingScoreInterface.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult AddPlayer(string home,string name)
         {
             HomeModel model;
@@ -33,6 +34,22 @@ namespace BowlingScoreInterface.Controllers
             }
             model.Players.Add(name);
             return View(nameof(Index),model);
+        }
+
+        [HttpPost]
+        public IActionResult EditPlayer(string home,int idRename, string newName)
+        {
+            HomeModel model;
+            try
+            {
+                model = JsonSerializer.Deserialize<HomeModel>(home) ?? new();
+            }
+            catch (JsonException e)
+            {
+                model = new();
+            }
+            model.Players[idRename] = newName;
+            return View(nameof(Index), model);
         }
 
         public IActionResult Privacy()
