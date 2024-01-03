@@ -13,12 +13,14 @@
         @for (int i = 0; i< Model.Players.Count; i++)
         {
             <div class="col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-start">
-                <div class="card player-card mx-2 hover-delete " style="width:100%;">
-                        <div class="card-body text-center">
-                        <p class="card-text">@Model.Players[i]</p>
+                <a asp-action="DeletePlayer" asp-route-home="@JsonSerializer.Serialize(Model)" asp-route-idPlayer="@i" class="mx-2 " style="width:100%;">
+                    <div class="card player-card hover-delete">
+                            <div class="card-body text-center">
+                            <p class="card-text">@Model.Players[i]</p>
 
-                        </div>
-                </div>
+                            </div>
+                    </div>
+                </a>
                 <a class="edit-player-link" href="" data-index="@i" data-oldName="@Model.Players[i]" data-bs-toggle="modal" data-bs-target="#editPlayerModal"><i class="fas fa-pencil-alt fa-2xs"></i></a>
             </div>
         }
@@ -55,7 +57,7 @@
                 <h5 class="modal-title" id="addPlayerModalLabel">New Player</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" asp-action="AddPlayer">
+            <form id="addPlayerForm" method="post" asp-action="AddPlayer">
                 <div class="modal-body">
                         <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
                         <div class="mb-3">
@@ -81,7 +83,7 @@
                 <h5 class="modal-title" id="editPlayerModalLabel">Rename Player</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" asp-action="EditPlayer">
+            <form id="editPlayerForm" method="post" asp-action="EditPlayer">
                 <div class="modal-body">
                     <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
                     <input type="hidden" name="idRename" />
@@ -104,6 +106,7 @@
 </div>
 
 @section Scripts {
+    <!-- script for choosing the amount of rounds-->
     <script>
         document.getElementById('button-minus').addEventListener('click', function () {
             var input = document.getElementById('roundsInput');
@@ -123,18 +126,80 @@
 
     </script>
 
+    <!-- script for renaming player-->
     <script>
         $(document).ready(function () {
             $('.edit-player-link').click(function () {
                 var index = $(this).attr('data-index');
                 var oldname = $(this).attr('data-oldName');
 
-                console.log(index);
-                console.log(oldname);
                 $('#idRename').val(index);
                 $('#oldPlayerName').val(oldname);
             });
         });
 
+    </script>
+
+    <!-- script for changing the button by hovering on it-->
+    <script>
+        $(document).ready(function () {
+            $('.hover-delete').hover(
+                function () {
+                    // mouseenter
+                    $(this).data('original-html', $(this).find('.card-text').html());
+                    $(this).find('.card-text').html('<i class="fa-regular fa-circle-xmark"></i>');
+                },
+                function () {
+                    // mouseleave
+                    $(this).find('.card-text').html($(this).data('original-html'));
+                }
+            );
+        });
+    </script>
+
+    <!-- script for validating the player name-->
+    <script>
+        // making sure the player name is not empty and not already in the list
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('addPlayerForm').addEventListener('submit', function (e) {
+                if (!validatePlayerName('playerName')) {
+                    e.preventDefault(); // prevent form from submitting
+                }
+            });
+
+            document.getElementById('editPlayerForm').addEventListener('submit', function (e) {
+                if (!validatePlayerName('newPlayerName')) {
+                    e.preventDefault(); // prevent form from submitting
+                }
+            });
+
+            // validate the player name by taking the input field id
+            function validatePlayerName(input) {
+                var playerName = document.getElementById(input).value.trim(); // trim to remove whitespace
+                if (playerName === '') {
+                    alert('The name field cannot be submitted empty.');
+                    return false;
+                }
+
+                var playerNames = [@foreach (var player in Model.Players){@Html.Raw($"'{player}',")}];
+                if (playerNames.includes(playerName)) {
+                    alert('This player name already exists.');
+                    return false;
+                }
+
+                return true;
+            }
+        });
+
+        // reset the input field when the modal is closed
+        $(document).ready(function () {
+            $('#addPlayerModal').on('hidden.bs.modal', function () {
+                $('#playerName').val('');
+            });
+
+            $('#editPlayerModal').on('hidden.bs.modal', function () {
+                $('#newPlayerName').val('');
+            });
+        });
     </script>
 }

@@ -14,12 +14,22 @@ namespace BowlingScoreInterface.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Method to return the view of the home page.
+        /// </summary>
+        /// <returns>The main view.</returns>
         public IActionResult Index()
         {
             HomeModel model=new();
             return View(model);
         }
 
+        /// <summary>
+        /// Method to add a player to the list of players
+        /// </summary>
+        /// <param name="home">The actual model.</param>
+        /// <param name="name"> The name that we want to add.</param>
+        /// <returns>The main view with the updated Model.</returns>
         [HttpPost]
         public IActionResult AddPlayer(string home,string name)
         {
@@ -36,6 +46,13 @@ namespace BowlingScoreInterface.Controllers
             return View(nameof(Index),model);
         }
 
+        /// <summary>
+        /// Method to edit the name of a player.
+        /// </summary>
+        /// <param name="home">The actual model.</param>
+        /// <param name="idRename">The index of the name that we want to edit.</param>
+        /// <param name="newName">The new name.</param>
+        /// <returns>The main view with the updated Model.</returns>
         [HttpPost]
         public IActionResult EditPlayer(string home,int idRename, string newName)
         {
@@ -52,9 +69,25 @@ namespace BowlingScoreInterface.Controllers
             return View(nameof(Index), model);
         }
 
-        public IActionResult Privacy()
+        /// <summary>
+        /// Method to delete a player from the list of players.
+        /// </summary>
+        /// <param name="home">The actual model.</param>
+        /// <param name="idPlayer">The index of the player that we want to remove.</param>
+        /// <returns>The main view with the updated Model.</returns>
+        public IActionResult DeletePlayer(string home,int idPlayer)
         {
-            return View();
+            HomeModel model;
+            try
+            {
+                model = JsonSerializer.Deserialize<HomeModel>(home) ?? new();
+            }
+            catch (JsonException e)
+            {
+                model = new();
+            }
+            model.Players.RemoveAt(idPlayer);
+            return View(nameof(Index), model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
