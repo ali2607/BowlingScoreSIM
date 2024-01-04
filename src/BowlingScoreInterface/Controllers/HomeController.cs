@@ -20,7 +20,7 @@ namespace BowlingScoreInterface.Controllers
         /// <returns>The main view.</returns>
         public IActionResult Index()
         {
-            HomeModel model=new();
+            Home model=new();
             return View(model);
         }
 
@@ -33,10 +33,10 @@ namespace BowlingScoreInterface.Controllers
         [HttpPost]
         public IActionResult AddPlayer(string home,string name)
         {
-            HomeModel model;
+            Home model;
             try
             {
-                model = JsonSerializer.Deserialize<HomeModel>(home) ?? new() ;
+                model = JsonSerializer.Deserialize<Home>(home) ?? new() ;
             }
             catch (JsonException e)
             {
@@ -56,10 +56,10 @@ namespace BowlingScoreInterface.Controllers
         [HttpPost]
         public IActionResult EditPlayer(string home,int idRename, string newName)
         {
-            HomeModel model;
+            Home model;
             try
             {
-                model = JsonSerializer.Deserialize<HomeModel>(home) ?? new();
+                model = JsonSerializer.Deserialize<Home>(home) ?? new();
             }
             catch (JsonException e)
             {
@@ -77,10 +77,10 @@ namespace BowlingScoreInterface.Controllers
         /// <returns>The main view with the updated Model.</returns>
         public IActionResult DeletePlayer(string home,int idPlayer)
         {
-            HomeModel model;
+            Home model;
             try
             {
-                model = JsonSerializer.Deserialize<HomeModel>(home) ?? new();
+                model = JsonSerializer.Deserialize<Home>(home) ?? new();
             }
             catch (JsonException e)
             {
@@ -88,6 +88,32 @@ namespace BowlingScoreInterface.Controllers
             }
             model.Players.RemoveAt(idPlayer);
             return View(nameof(Index), model);
+        }
+
+        /// <summary>
+        /// Method to start the game.
+        /// </summary>
+        /// <param name="home">The actual model</param>
+        /// <param name="rounds">The amount of rounds</param>
+        /// <returns>Redirect to the Game Page</returns>
+        public IActionResult StartGame(string home, int rounds)
+        {
+
+            //TODO: replace this logic with the logic to start the game.
+            //this is just a placeholder.
+            //this method should create an instance of the game class with a HomeModel as a parameter and pass it to the next view that will handle the actual game.
+            Home model;
+            try
+            {
+                model = JsonSerializer.Deserialize<Home>(home) ?? new();
+            }
+            catch (JsonException e)
+            {
+                model = new();
+            }
+            model.NumberOfRounds = rounds;
+            Game game = new(model);
+            return RedirectToAction(nameof(Index),nameof(Game),new {serializedGame = JsonSerializer.Serialize(game) });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

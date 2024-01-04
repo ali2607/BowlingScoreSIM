@@ -5,7 +5,7 @@ namespace BowlingScoreInterface.Models;
 /// <summary>
 /// Class to represent the model of the home page.
 /// </summary>
-public class HomeModel
+public class Home
 {
     /// <summary>
     /// List of players.

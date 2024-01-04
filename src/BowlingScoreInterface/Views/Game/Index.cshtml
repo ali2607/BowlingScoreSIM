@@ -1,0 +1,18 @@
+﻿@model Game
+@using System.Text.Json
+@{
+    ViewData["Title"] = "Game Page";
+}
+<div class="container-fluid">
+    <h1>A FAIRE </h1>
+    <h2>Players :</h2>
+    @foreach(var test in Model.Players)
+{
+        <p>@test</p>
+    }
+    <h2>number of rounds:</h2>
+    <p> @Model.NumberOfRounds</p>
+
+
+
+</div>

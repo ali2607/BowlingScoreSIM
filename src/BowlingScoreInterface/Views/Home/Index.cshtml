@@ -1,4 +1,4 @@
-﻿@model HomeModel
+﻿@model Home
 @using System.Text.Json
 @{
     ViewData["Title"] = "Home Page";
@@ -30,22 +30,30 @@
             </button>
         </div>
     </div>
-    <div class="row" style="font-size:xx-large">
-        <div class="col-auto mb-3">
-            <label><strong>Amount of rounds:</strong></label>
-        </div>
-        <div class="col-auto mb-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="button" id="button-minus"><b>-</b></button>
-                </div>
-                <input type="number" tabindex="-1" class="form-control btn-outline-secondary " id="roundsInput" value="@Model.NumberOfRounds" min="1" max="10" style="background-color:transparent;color:white;"  readonly>
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-plus"><b>+</b></button>
+    <form id="startGameForm" method="post" asp-action="StartGame">
+        <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
+        <div class="row" style="font-size:xx-large">
+            <div class="col-auto mb-3">
+                <label><strong>Amount of rounds:</strong></label>
+            </div>
+            <div class="col-auto mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="button" id="button-minus"><b>-</b></button>
+                    </div>
+                    <input type="number" name="rounds" tabindex="-1" class="form-control btn-outline-secondary " id="roundsInput" value="@Model.NumberOfRounds" min="1" max="10" style="background-color:transparent;color:white;"  readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-plus"><b>+</b></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="row" style="font-size:xx-large">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-purple btn-lg"><strong>START</strong></button>
+            </div>
+        </div>
+    </form>
 </div>
 
 
@@ -86,7 +94,7 @@
             <form id="editPlayerForm" method="post" asp-action="EditPlayer">
                 <div class="modal-body">
                     <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
-                    <input type="hidden" name="idRename" />
+                    <input type="hidden" id="idRename" name="idRename" />
                     <div class="mb-3">
                         <label for="playerName" class="col-form-label" style="color:black">Player Name:</label>
                         <input type="text" class="form-control" id="oldPlayerName" name="name" readonly />
@@ -132,7 +140,7 @@
             $('.edit-player-link').click(function () {
                 var index = $(this).attr('data-index');
                 var oldname = $(this).attr('data-oldName');
-
+                console.log(index);
                 $('#idRename').val(index);
                 $('#oldPlayerName').val(oldname);
             });
@@ -199,6 +207,22 @@
 
             $('#editPlayerModal').on('hidden.bs.modal', function () {
                 $('#newPlayerName').val('');
+            });
+        });
+    </script>
+
+    <!-- script for validating the number of players-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var startGameForm = document.getElementById('startGameForm');
+
+            startGameForm.addEventListener('submit', function (e) {
+                var numberOfPlayers = @Model.Players.Count ;
+
+                if (numberOfPlayers === 0) {
+                    alert('Please add at least one player to start the game.');
+                    e.preventDefault(); // Prevent form from submitting
+                }
             });
         });
     </script>
