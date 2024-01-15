@@ -20,7 +20,7 @@ public class Home
     /// <summary>
     /// Limit of players.
     /// </summary>
-    public int MaxPlayers { get; } = 2;
+    public int MaxPlayers { get; } = 10;
 
 
 }
