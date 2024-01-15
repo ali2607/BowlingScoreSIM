@@ -71,7 +71,7 @@
                                 <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
                                 <div class="mb-3">
                                     <label for="playerName" class="col-form-label" style="color:black">Player Name:</label>
-                                    <input type="text" class="form-control" id="playerName" name="name">
+                        <input type="text" class="form-control" id="playerName" name="name" oninput="checkCharacterLimit(this)">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="newPlayerName" class="col-form-label" style="color:black">New Name:</label>
-                        <input type="text" class="form-control" id="newPlayerName" name="newName">
+                        <input type="text" class="form-control" id="newPlayerName" name="newName" oninput="checkCharacterLimit(this)">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -117,9 +117,9 @@
 </div>
 
 @section Scripts {
+
     <!-- script to limit the number of players-->
     <script>
-
         // document.getelementbyid('#addplayermodal').addeventlistener('show.bs.modal', function (e) {
         //         var numberofplayers = model.players.count ;
         //         var maxplayers = model.maxplayers;
@@ -141,7 +141,18 @@
                 }
             });
         });
+    </script>
 
+    <!-- script to limit the number of characters in player names-->
+    <script>
+        function checkCharacterLimit(textbox) {
+            var maxCharacters = 12;
+            var playerName = textbox.value;
+            if (playerName.length > maxCharacters) {
+                alert('The character limit for a player name has been reached');
+                textbox.value = playerName.substring(0, maxCharacters);
+            }
+        }
     </script>
 
     <!-- script for choosing the amount of rounds-->
