@@ -11,9 +11,16 @@ public class Home
     /// List of players.
     /// </summary>
     public List<string> Players { get; set; } = new List<string>();
+
     /// <summary>
     /// amount of rounds.
     /// </summary>
     public int NumberOfRounds { get; set; } = 1;
+
+    /// <summary>
+    /// Limit of players.
+    /// </summary>
+    public int MaxPlayers { get; } = 2;
+
 
 }

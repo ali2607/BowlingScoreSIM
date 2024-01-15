@@ -15,9 +15,8 @@
             <div class="col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-start">
                 <a asp-action="DeletePlayer" asp-route-home="@JsonSerializer.Serialize(Model)" asp-route-idPlayer="@i" class="mx-2 " style="width:100%;">
                     <div class="card player-card hover-delete">
-                            <div class="card-body text-center">
-                            <p class="card-text">@Model.Players[i]</p>
-
+                            <div class="card-body align-items-center text-center">
+                                <p class="card-text">@Model.Players[i]</p>
                             </div>
                     </div>
                 </a>
@@ -25,7 +24,7 @@
             </div>
         }
         <div class="col-auto mb-3">
-            <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
+            <button id="addPlayerButton" class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#addPlayerModal">
                 <i class="fa-solid fa-plus"></i> <strong>Add player</strong>
             </button>
         </div>
@@ -41,7 +40,7 @@
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary" type="button" id="button-minus"><b>-</b></button>
                     </div>
-                    <input type="number" name="rounds" tabindex="-1" class="form-control btn-outline-secondary " id="roundsInput" value="@Model.NumberOfRounds" min="1" max="10" style="background-color:transparent;color:white;"  readonly>
+                    <input type="number" name="rounds" tabindex="-1" class="form-control btn-outline-secondary text-center" id="roundsInput" value="@Model.NumberOfRounds" min="1" max="10" style="background-color:transparent;color:white;" readonly>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="button-plus"><b>+</b></button>
                     </div>
@@ -61,23 +60,25 @@
 <div class="modal fade" id="addPlayerModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addPlayerModalLabel">New Player</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="addPlayerForm" method="post" asp-action="AddPlayer">
-                <div class="modal-body">
-                        <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
-                        <div class="mb-3">
-                            <label for="playerName" class="col-form-label" style="color:black">Player Name:</label>
-                            <input type="text" class="form-control" id="playerName" name="name">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-purple">Add Player</button>
-                        </div>
+            <div class="custom-form-container">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPlayerModalLabel">New Player</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-            </form>
+            </div>
+                <form id="addPlayerForm" method="post" asp-action="AddPlayer">
+                        <div class="modal-body">
+                                <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
+                                <div class="mb-3">
+                                    <label for="playerName" class="col-form-label" style="color:black">Player Name:</label>
+                                    <input type="text" class="form-control" id="playerName" name="name">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-purple">Add Player</button>
+                                </div>
+                        </div>
+                </form>
         </div>
     </div>
 </div>
@@ -87,9 +88,11 @@
 <div class="modal fade" id="editPlayerModal" tabindex="-1" >
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editPlayerModalLabel">Rename Player</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="custom-form-container">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPlayerModalLabel">Rename Player</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
             </div>
             <form id="editPlayerForm" method="post" asp-action="EditPlayer">
                 <div class="modal-body">
@@ -114,6 +117,33 @@
 </div>
 
 @section Scripts {
+    <!-- script to limit the number of players-->
+    <script>
+
+        // document.getelementbyid('#addplayermodal').addeventlistener('show.bs.modal', function (e) {
+        //         var numberofplayers = model.players.count ;
+        //         var maxplayers = model.maxplayers;
+
+        //         if (numberofplayers === maxplayers) {
+        //             alert('the player limit has already been reached.');
+        //             e.stoppropagation(); // prevent form from submitting
+        //         }
+        //     });
+        // });
+
+        $(document).ready(function () {
+            $('#addPlayerModal').on('show.bs.modal', function (e) {
+                var numberofplayers = @Model.Players.Count ;
+                var maxplayers = @Model.MaxPlayers;
+                if (numberofplayers === maxplayers) {
+                    alert('The player limit has already been reached.');
+                    e.stoppropagation(); // prevent form from submitting
+                }
+            });
+        });
+
+    </script>
+
     <!-- script for choosing the amount of rounds-->
     <script>
         document.getElementById('button-minus').addEventListener('click', function () {
@@ -183,6 +213,7 @@
 
             // validate the player name by taking the input field id
             function validatePlayerName(input) {
+
                 var playerName = document.getElementById(input).value.trim(); // trim to remove whitespace
                 if (playerName === '') {
                     alert('The name field cannot be submitted empty.');
