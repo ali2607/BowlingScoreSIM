@@ -31,18 +31,38 @@
     </div>
     <form id="startGameForm" method="post" asp-action="StartGame">
         <input type="hidden" name="home" value="@JsonSerializer.Serialize(Model)" />
+
+        <!-- Number of Rounds  -->
         <div class="row" style="font-size:xx-large">
-            <div class="col-auto mb-3">
+            <div class="col-auto mb-4">
                 <label><strong>Amount of rounds:</strong></label>
             </div>
             <div class="col-auto mb-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary" type="button" id="button-minus"><b>-</b></button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-minus-rounds"><b>-</b></button>
                     </div>
                     <input type="number" name="rounds" tabindex="-1" class="form-control btn-outline-secondary text-center" id="roundsInput" value="@Model.NumberOfRounds" min="1" max="10" style="background-color:transparent;color:white;" readonly>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-plus"><b>+</b></button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-plus-rounds"><b>+</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Number of Pins  -->
+        <div class="row" style="font-size:xx-large">
+            <div class="col-auto mb-3">
+                <label><strong>Amount of pins:</strong></label>
+            </div>
+            <div class="col-auto mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="button" id="button-minus-pins"><b>-</b></button>
+                    </div>
+                    <input type="number" name="pins" tabindex="-1" class="form-control btn-outline-secondary text-center" id="pinsInput" value="@Model.NumberOfPins" min="1" max="10" style="background-color:transparent;color:white;" readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-plus-pins"><b>+</b></button>
                     </div>
                 </div>
             </div>
@@ -120,16 +140,6 @@
 
     <!-- script to limit the number of players-->
     <script>
-        // document.getelementbyid('#addplayermodal').addeventlistener('show.bs.modal', function (e) {
-        //         var numberofplayers = model.players.count ;
-        //         var maxplayers = model.maxplayers;
-
-        //         if (numberofplayers === maxplayers) {
-        //             alert('the player limit has already been reached.');
-        //             e.stoppropagation(); // prevent form from submitting
-        //         }
-        //     });
-        // });
 
         $(document).ready(function () {
             $('#addPlayerModal').on('show.bs.modal', function (e) {
@@ -155,9 +165,9 @@
         }
     </script>
 
-    <!-- script for choosing the amount of rounds-->
+    <!-- script for choosing the amount of rounds and pins -->
     <script>
-        document.getElementById('button-minus').addEventListener('click', function () {
+        document.getElementById('button-minus-rounds').addEventListener('click', function () {
             var input = document.getElementById('roundsInput');
             var currentValue = parseInt(input.value, 10);
             if (currentValue > 1) {
@@ -165,7 +175,7 @@
             }
         });
 
-        document.getElementById('button-plus').addEventListener('click', function () {
+        document.getElementById('button-plus-rounds').addEventListener('click', function () {
             var input = document.getElementById('roundsInput');
             var currentValue = parseInt(input.value, 10);
             if (currentValue < 10) {
@@ -173,6 +183,21 @@
             }
         });
 
+        document.getElementById('button-minus-pins').addEventListener('click', function () {
+            var input = document.getElementById('pinsInput');
+            var currentValue = parseInt(input.value, 10);
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        });
+
+        document.getElementById('button-plus-pins').addEventListener('click', function () {
+            var input = document.getElementById('pinsInput');
+            var currentValue = parseInt(input.value, 10);
+            if (currentValue < 10) {
+                input.value = currentValue + 1;
+            }
+        });
     </script>
 
     <!-- script for renaming player-->

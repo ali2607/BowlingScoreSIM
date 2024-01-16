@@ -18,6 +18,11 @@ public class Home
     public int NumberOfRounds { get; set; } = 1;
 
     /// <summary>
+    /// amount of pins.
+    /// </summary>
+    public int NumberOfPins { get; set; } = 10;
+
+    /// <summary>
     /// Limit of players.
     /// </summary>
     public int MaxPlayers { get; } = 10;

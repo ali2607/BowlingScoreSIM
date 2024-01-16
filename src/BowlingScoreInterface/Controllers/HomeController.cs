@@ -96,7 +96,7 @@ namespace BowlingScoreInterface.Controllers
         /// <param name="home">The actual model</param>
         /// <param name="rounds">The amount of rounds</param>
         /// <returns>Redirect to the Game Page</returns>
-        public IActionResult StartGame(string home, int rounds)
+        public IActionResult StartGame(string home, int rounds, int pins)
         {
 
             //TODO: replace this logic with the logic to start the game.
@@ -112,6 +112,7 @@ namespace BowlingScoreInterface.Controllers
                 model = new();
             }
             model.NumberOfRounds = rounds;
+            model.NumberOfPins = pins;
             Game game = new(model);
             return RedirectToAction(nameof(Index),nameof(Game),new {serializedGame = JsonSerializer.Serialize(game) });
         }
