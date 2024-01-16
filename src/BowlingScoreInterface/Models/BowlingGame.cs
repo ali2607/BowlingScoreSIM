@@ -2,7 +2,7 @@ namespace BowlingScoreInterface.Models;
 class BowlingGame
 {
     private int pins_1, pins_2;
-
+    
     public void Roll_1(int pins_1)
     {
         this.pins_1 = pins_1;
@@ -15,7 +15,7 @@ class BowlingGame
 
     public int CalculateRoundScore()
     {
-        // Implement the logic to calculate the current round score
+        
         return pins_1 + pins_2;
     }
 }

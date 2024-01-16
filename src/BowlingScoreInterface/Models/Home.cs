@@ -8,6 +8,11 @@ namespace BowlingScoreInterface.Models;
 public class Home
 {
     /// <summary>
+    /// amount of pins.
+    /// </summary>
+    public int NumberOfPins { get; set; } = 10;
+
+    /// <summary>
     /// List of players.
     /// </summary>
     public List<string> Players { get; set; } = new List<string>();
@@ -17,10 +22,7 @@ public class Home
     /// </summary>
     public int NumberOfRounds { get; set; } = 1;
 
-    /// <summary>
-    /// amount of pins.
-    /// </summary>
-    public int NumberOfPins { get; set; } = 10;
+    
 
     /// <summary>
     /// Limit of players.
