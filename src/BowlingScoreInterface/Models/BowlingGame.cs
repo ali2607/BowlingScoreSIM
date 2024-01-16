@@ -13,9 +13,5 @@ class BowlingGame
         this.pins_2 = pins_2;
     }
 
-    public int CalculateRoundScore()
-    {
-        
-        return pins_1 + pins_2;
-    }
+
 }

@@ -2,17 +2,17 @@ namespace BowlingScoreInterface.Models;
 class Player
 {
     public string Name { get; private set; }
-    public List<(int, int )> Tab2DScores { get; private set; }
+    public List<(int Roll1, int Roll2)> Tab2DScores { get; private set; }
     public Home Home { get; private set; }
-    public BowlingGame CurrentGame { get; private set; }
+    public int CurrentRound {  get; private set; } 
     int score_1, score_2;
 
     public Player(string name, Home home)
     {
         Name = name;
         Home = home;
+        CurrentRound = -1;
         Tab2DScores = [];    
-        CurrentGame = new BowlingGame();
     }
 
     public void Roll_1()
@@ -24,7 +24,8 @@ class Player
             Console.Write("Enter the score for the first roll: ");
 
         }
-        CurrentGame.Roll_1(score_1);
+
+        
     }
     public void Roll_2()
     {
@@ -37,7 +38,14 @@ class Player
                 Console.Write("Enter the score for the second roll: ");
             }
 
-            CurrentGame.Roll_2(score_2);
+
+
+            CurrentRound++;
         }
+    }
+    public int CalculateRoundScore()
+    {
+
+        throw new NotImplementedException();
     }
 }
