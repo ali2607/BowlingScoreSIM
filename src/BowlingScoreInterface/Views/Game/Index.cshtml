@@ -28,8 +28,6 @@
     <!-- Choose the number of pins  -->
     <form method="post" asp-action="PinsTaken">
         <input type="hidden" name="serializedGame" value="@JsonSerializer.Serialize(Model)" />
-        <input type="hidden" name="indexCurrentPlayer" value="@Model.actualplayer" />
-
         <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name's turn!!</h4>
         <div class="col-12 mb-3 d-flex justify-content-center">
             <div class="card player-card-pins">

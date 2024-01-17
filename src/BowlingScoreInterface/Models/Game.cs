@@ -1,4 +1,6 @@
-﻿namespace BowlingScoreInterface.Models;
+﻿using System.Runtime.CompilerServices;
+
+namespace BowlingScoreInterface.Models;
 
 /// <summary>
 /// Class to represent the model of the game page.
@@ -25,5 +27,16 @@ public class Game
     {
         Players = new(1);
         NumberOfRounds = 1;
+    }
+
+    /// <summary>
+    /// Method to update the game.
+    /// </summary>
+    /// <param name="pinsScore">the number of pins that fell in this roll</param>
+    /// <returns>the updated Game</returns>
+    public Game Update(int pinsScore)
+    {
+
+        throw new NotImplementedException();
     }
 }

@@ -24,7 +24,7 @@ namespace BowlingScoreInterface.Controllers
             return View(game);
         }
 
-        public IActionResult PinsTaken(string serializedGame, int pinsScore, int indexCurrentPlayer)
+        public IActionResult PinsTaken(string serializedGame, int pinsScore)
         {
             Game? game = new();
             try
@@ -38,6 +38,8 @@ namespace BowlingScoreInterface.Controllers
 
             //Mettre a jour le scoreboard
             //Mettre a jour le joueur actuel
+            game = game.Update(pinsScore);
+
 
             return View(nameof(Index), game);
         }   
