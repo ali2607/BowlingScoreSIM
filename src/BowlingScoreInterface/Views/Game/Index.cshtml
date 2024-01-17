@@ -3,16 +3,36 @@
 @{
     ViewData["Title"] = "Game Page";
 }
-<div class="container-fluid">
-    <h1>A FAIRE </h1>
-    <h2>Players :</h2>
-    @foreach(var test in Model.Players)
-{
-        <p>@test</p>
-    }
-    <h2>number of rounds:</h2>
-    <p> @Model.NumberOfRounds</p>
+<div class="container fluid py-4">
+    <!-- Score table -->
+    <div class="row mb-4">
+        <!-- Scorecard -->
+        <div class="card">
+            <div class="row g-0">
+                <!-- Name Column -->
+                <div class="col-3 custom-gray-bg">
+                    <span>Denis</span>
+                    <!-- Include other elements that should be within the gray background here -->
+                </div>
+                <!-- Scores Columns -->
+                <div class="col-7">
+                    <div class="container-fluid">
+                        <!-- Wrap all the scores in a single row -->
+                        <div class="row">
+                            <!-- Each score is in its own column, adjust the col sizes as needed -->
+                            <div class="col-6"><span>9</span></div>
+                            <div class="col-6"><span>8</span></div>
+                            <!-- Add more score columns here -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Total Score Column -->
+                <div class="col-2">
+                    <span class="badge bg-primary rounded-pill">109</span>
+                </div>
+            </div>
 
-
-
+        </div>
+    </div>
+   
 </div>
