@@ -12,7 +12,7 @@
                 <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
             </div>
             <!-- Scores col border-customumns -->
-            @for (int j = 0; j < Model.NumberOfRounds; j++) // MODIFIER LE 10 PAR LE NOMBRE DE ROUNDS
+            @for (int j = 0; j < Model.NumberOfRounds; j++)
             {
                 <div class="col border-custom border-custom">
                     <div class="d-flex justify-content-between">
@@ -33,7 +33,7 @@
             <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
                     <h4 class="mb-3">How many pins fell?</h4>
-                    @for (int i = 0; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                    @for (int i = 0; i <= Model.NumberOfPins; i++)
                     {
                         <button type="button" id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
                     }
@@ -56,7 +56,7 @@
     <!-- script to change buttons color -->
     <script>
         function ColorButtons(clickedButton, indButton) {
-            for (var i = 1; i <= 10; i++) // Replace 10 with Model.NumberOfPins
+            for (var i = 1; i <= @Model.NumberOfPins; i++) // Replace 10 with Model.NumberOfPins
             {
                 var pinButton = document.getElementById('button' + i);
 
