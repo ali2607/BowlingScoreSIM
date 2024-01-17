@@ -5,20 +5,20 @@
 /// </summary>
 public class Game
 {
-    public List<string> Players { get; set; }
+    public List<string> PlayersNames { get; set; }
     public int NumberOfRounds { get; set; }
     public int NumberOfPins { get; set; }
     public int actualplayer { get; set; }
 
     public Game(Home sartingParameter)
     {
-        Players = sartingParameter.Players;
+        PlayersNames = sartingParameter.Players;
         NumberOfRounds = sartingParameter.NumberOfRounds;
     }
 
     public Game() : this(new Home())
     {
-        Players = new List<string>() {"Player 1"};
+        PlayersNames = new List<string>() {"Player 1"};
         NumberOfRounds = 1;
     }
 }
