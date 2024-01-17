@@ -4,33 +4,36 @@
     ViewData["Title"] = "Game Page";
 }
 <div class="container fluid py-4">
-    <div class="row mb-5">       
-        <!-- Name col border-customumn -->
-        <div class="col border-custom border-custom d-flex align-items-center">
-            <span class="d-block mx-auto text-center">Denis</span>
-        </div>
-        <!-- Scores col border-customumns -->
-        @for (int i = 1; i < 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE ROUNDS
-        {
-            <div class="col border-custom border-custom">
-                <div class="d-flex justify-content-between">
-                    <label class="d-inline ms-2">10</label>
-                    <label class="d-inline me-2">10</label>
-                </div>
-                <label class="d-block mx-auto text-center">20</label>
+    @for (int i = 0; i < Model.Players.Count; i++)
+    {
+        <div class="row mb-5">       
+            <!-- Name col border-customumn -->
+            <div class="col border-custom border-custom d-flex align-items-center">
+                <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
             </div>
-        }
-    </div>
+            <!-- Scores col border-customumns -->
+            @for (int j = 0; j < Model.NumberOfRounds; j++) // MODIFIER LE 10 PAR LE NOMBRE DE ROUNDS
+            {
+                <div class="col border-custom border-custom">
+                    <div class="d-flex justify-content-between">
+                        <label class="d-inline ms-2">@Model.Players[i].Rounds[j].FirstRound</label>
+                        <label class="d-inline me-2">@Model.Players[i].Rounds[j].SecondRound</label>
+                    </div>
+                    <label class="d-block mx-auto text-center">@Model.Players[i].Rounds[j].RoundScore</label>
+                </div>
+            }
+        </div>        
+    }
 
     <!-- Choose the number of pins  -->
         <input type="hidden" name="game" value="@JsonSerializer.Serialize(Model)" />
 
-        <h4 class="mb-3 text-center" style="color:#fc5d5d">Ali's turn!!</h4>
+        <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name 's turn!!</h4>
         <div class="col-12 mb-3 d-flex justify-content-center">
                 <div class="card player-card-pins">
                     <div class="card-body align-items-center text-center">
                         <h4 class="mb-3">How many pins fell?</h4>
-                        @for (int i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                        @for (int i = 1; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
                         {
                         <button id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
                         }

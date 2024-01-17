@@ -15,5 +15,12 @@ public class Round
         RoundScore = roundScore;
     }
 
+    public Round()
+    {
+        FirstRound = " ";
+        SecondRound = " ";
+        RoundScore = " ";
+    }
+
 
 }
