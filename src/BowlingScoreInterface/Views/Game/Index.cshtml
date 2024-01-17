@@ -56,7 +56,7 @@
             <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
                     <h4 class="mb-3">How many pins fell?</h4>
-                    @for (int i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                    @for (int i = 1; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
                     {
                         <button id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
                     }
