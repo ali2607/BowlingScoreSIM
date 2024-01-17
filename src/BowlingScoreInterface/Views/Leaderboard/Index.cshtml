@@ -1,0 +1,39 @@
+﻿@model Leaderboard
+@using System.Text.Json
+@{
+    ViewData["Title"] = "Leaderboard Page";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-5">Leaderboard</h1>
+
+    <!-- Leaderboard -->
+    <table class="table table-sm">
+        <thead style="color: white;">
+            <tr>
+                <th scope="col" style="width: 10%"></th>
+                <th scope="col" style="width: 50%">Player name</th>
+                <th scope="col" style="width: 50%">Score</th>
+            </tr>
+        </thead>
+        <tbody style="color: white;">
+            @for (int i = 1; i <= 5; i++) // MODIFIER LE 10 PAR LE NOMBRE DE JOUEURS
+            {
+                <tr>
+                    <th scope="row" class="rounded p-2 bg-secondary" style="text-align: center;background-color:#585858;opacity:80%">@i</th>
+                    <td class="p-2">Player@(i)</td>
+                    <td class="p-2">@Html.Raw(100 + i)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4 class="mt-5 mb-5 text-center" style="color:#fc5d5d">Denis Wins!</h4>
+
+    <!-- Restart Button -->
+    <div class="row" style="font-size:xx-large">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-purple btn-lg"><strong>Restart a game</strong></button>
+        </div>
+    </div>
+</div>
