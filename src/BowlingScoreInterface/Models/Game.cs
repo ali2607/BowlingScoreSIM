@@ -8,8 +8,6 @@ public class Game
     public List<string> Players { get; set; }
     public int NumberOfRounds { get; set; }
 
-    public static readonly int MaxPlayers;
-
     public Game(Home sartingParameter)
     {
         Players = sartingParameter.Players;

@@ -60,6 +60,70 @@
             <label>t2: 10</label>
             <label>res: 10</label>
         </div>
+    <!-- Score table -->
+    <div class="row mb-4">
+        <!-- Scorecard -->
+        <div class="card">
+            <div class="row g-0">
+                <!-- Name Column -->
+                <div class="col-3 custom-gray-bg">
+                    <span>Denis</span>
+                    <!-- Include other elements that should be within the gray background here -->
+                </div>
+                <!-- Scores Columns -->
+                <div class="col-7">
+                    <div class="container-fluid">
+                        <!-- Wrap all the scores in a single row -->
+                        <div class="row">
+                            <!-- Each score is in its own column, adjust the col sizes as needed -->
+                            <div class="col-6"><span>9</span></div>
+                            <div class="col-6"><span>8</span></div>
+                            <!-- Add more score columns here -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Total Score Column -->
+                <div class="col-2">
+                    <span class="badge bg-primary rounded-pill">109</span>
+                </div>
+            </div>
+
+    <!-- Choose the number of pins  -->
+    <br /><br />
+    <h4 class="mb-3 text-center" style="color:#fc5d5d">Ali's turn!!</h4>
+    <div class="col-sm-14 col-md-10 col-lg-8 mb-3 d-flex align-items-start mx-auto">
+            <div class="card player-card-pins">
+                <div class="card-body align-items-center text-center">
+                    <h4 class="mb-3">How many pins fell?</h4>
+                    @for (int i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                    {
+                    <button id="button@i" class="bouton btn btn-secondary" onclick="ColorButtons(this)">@i</button>
+                    }
+                    <div id="pinsScore" class="mt-3" style="color:#fc5d5d">0</div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Confirm Button  -->
+    <div class="row" style="font-size:xx-large">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-purple btn-lg"><strong>Confirm</strong></button>
+        </div>
     </div>
 
 </div>
+
+ @section Scripts {
+
+    <!-- script to change buttons color -->
+    <script>
+        function ColorButtons(clickedButton) {
+            for (int i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+            {
+                var pinsScore = document.getElementById('pinsScore');
+                pinsScore.value = 1;
+            }
+        });
+    </script>
+
+}
