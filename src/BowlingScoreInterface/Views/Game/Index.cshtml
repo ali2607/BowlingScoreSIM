@@ -4,25 +4,43 @@
     ViewData["Title"] = "Game Page";
 }
 <div class="container-fluid">
-    <h1>A FAIRE </h1>
-    <h2>Players :</h2>
-    @foreach(var test in Model.Players)
-{
-        <p>@test</p>
-    }
-    <h2>number of rounds:</h2>
-    <p> @Model.NumberOfRounds</p>
 
     <!-- Choose the number of pins  -->
-    <div class="col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-start">
-            <div class="card player-card">
+    <br /><br />
+    <h4 class="mb-3 text-center" style="color:#fc5d5d">Ali's turn!!</h4>
+    <div class="col-sm-14 col-md-10 col-lg-8 mb-3 d-flex align-items-start mx-auto">
+            <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
-                    @for (int i = 0; i< 1; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                    <h4 class="mb-3">How many pins fell?</h4>
+                    @for (int i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
                     {
-                        //<img class="quille" src="../wwwroot/images/WhitePin.png" alt="Quille">
+                    <button id="button@i" class="bouton btn btn-secondary" onclick="ColorButtons(this)">@i</button>
                     }
+                    <div id="pinsScore" class="mt-3" style="color:#fc5d5d">0</div>
                 </div>
             </div>
     </div>
 
+    <!-- Confirm Button  -->
+    <div class="row" style="font-size:xx-large">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-purple btn-lg"><strong>Confirm</strong></button>
+        </div>
+    </div>
+
 </div>
+
+ @section Scripts {
+
+    <!-- script to change buttons color -->
+    <script>
+        function ColorButtons(clickedButton) {
+            for (int i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+            {
+                var pinsScore = document.getElementById('pinsScore');
+                pinsScore.value = 1;
+            }
+        });
+    </script>
+
+}

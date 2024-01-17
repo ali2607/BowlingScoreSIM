@@ -69,7 +69,29 @@ a:hover {
 }
 
 
-.quille {
-    display: block;
-    margin: 10px auto; /* Espacement entre les quilles et centrage */
+.bouton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid white;
+    border-radius: 20px;
+    border-color: #585858;
+    background-color: #585858;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.player-card-pins {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    margin-left:45px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    height: 190px;
 }
