@@ -1,5 +1,6 @@
 using System.Threading.Channels;
 using BowlingScoreInterface;
+using BowlingScoreInterface.Controllers;
 
 
 namespace BowlingScoreTest;
