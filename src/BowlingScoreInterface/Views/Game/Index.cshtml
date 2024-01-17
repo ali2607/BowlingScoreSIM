@@ -26,44 +26,20 @@
     }
 
     <!-- Choose the number of pins  -->
-        <input type="hidden" name="game" value="@JsonSerializer.Serialize(Model)" />
+    <form method="post" asp-action="PinsTaken">
+        <input type="hidden" name="serializedGame" value="@JsonSerializer.Serialize(Model)" />
+        <input type="hidden" name="indexCurrentPlayer" value="@Model.actualplayer" />
 
-        <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name 's turn!!</h4>
-        <div class="col-12 mb-3 d-flex justify-content-center">
-                <div class="card player-card-pins">
-                    <div class="card-body align-items-center text-center">
-                        <h4 class="mb-3">How many pins fell?</h4>
-                        @for (int i = 1; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
-                        {
-                        <button id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
-                        }
-                        <h4 id="pinsScore" class="mt-3" style="color:#fc5d5d">0</h4>
-                    </div>
-                </div>
-        </div>
-
-        <!-- Confirm Button  -->
-        <div class="row" style="font-size:xx-large">
-            <div class="col text-center">
-                <button type="submit" class="btn btn-purple btn-lg"><strong>Confirm</strong></button>
-            </div>
-        </div>
-
-@*     <!-- Choose the number of pins  -->
-    <form method="post" asp-action="">
-        <input type="hidden" name="game" value="@JsonSerializer.Serialize(Model)" />
-        <input type="hidden" id="Score" name="pinsScore" value="0" />
-
-        <h4 class="mb-3 text-center" style="color:#fc5d5d">Ali's turn!!</h4>
+        <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name's turn!!</h4>
         <div class="col-12 mb-3 d-flex justify-content-center">
             <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
                     <h4 class="mb-3">How many pins fell?</h4>
-                    @for (int i = 1; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                    @for (int i = 0; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
                     {
-                        <button id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
+                        <button type="button" id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
                     }
-                    <h4 id="pinsScore" class="mt-3" style="color:#fc5d5d">0</h4>
+                    <input id="pinsScore" name="pinsScore" class="mt-3 form-control text-center" style="color:#fc5d5d; font-size: large;background-color:transparent;border:hidden;" value="0" readonly />
                 </div>
             </div>
         </div>
@@ -74,7 +50,7 @@
                 <button type="submit" class="btn btn-purple btn-lg"><strong>Confirm</strong></button>
             </div>
         </div>
-    </form> *@
+    </form>
 </div>
 
  @section Scripts {
@@ -82,9 +58,9 @@
     <!-- script to change buttons color -->
     <script>
         function ColorButtons(clickedButton, indButton) {
-            for (var i = 1; i <= 10; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+            for (var i = 1; i <= 10; i++) // Replace 10 with Model.NumberOfPins
             {
-                var pinButton = document.getElementById('button'+i);
+                var pinButton = document.getElementById('button' + i);
 
                 if (i <= indButton) {
                     pinButton.style.backgroundColor = '#fc5d5d';
@@ -93,12 +69,10 @@
                 else {
                     pinButton.style.backgroundColor = '#585858';
                     pinButton.style.borderColor = '#585858';
-                }                
+                }
             }
             var pinsScore = document.getElementById('pinsScore');
-            //var Score = document.getElementById('Score');
-            pinsScore.textContent = indButton;
-            //Score.value = indButton;
+            pinsScore.value = indButton;
         };
     </script>
 
