@@ -5,8 +5,10 @@
 /// </summary>
 public class Game
 {
-    public List<string> Players { get; set; }
+    public List<Player> Players { get; set; }
     public int NumberOfRounds { get; set; }
+    public int NumberOfPins { get; set; }
+    public int actualplayer { get; set; }
 
     public Game(Home sartingParameter)
     {

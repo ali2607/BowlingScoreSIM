@@ -23,5 +23,6 @@ namespace BowlingScoreInterface.Controllers
             }
             return View(game);
         }
+
     }
 }
