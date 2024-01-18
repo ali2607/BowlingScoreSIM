@@ -58,6 +58,16 @@ public class Player
     }
     public void Roll2()
     {
+        Home home = new Home();
+        List <Round> Test = new List<Round>(home.NumberOfRounds);
+        Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n" + Test.Count + "\n\n\n\n\n\n\n\n\n\n\n\n" + home.NumberOfRounds + "\n\n\n\n\n\n\n\n\n\n\n\n");
+        for (int i = 0; i < Home.NumberOfRounds; i++)
+        {
+            Test.Add(new Round());
+        }
+        Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n" + Test.Count + "\n\n\n\n\n\n\n\n\n\n\n\n");
+
+
         // asks the user to enter the result
         if (score_1 + score_2 == Home.NumberOfPins)
         {
