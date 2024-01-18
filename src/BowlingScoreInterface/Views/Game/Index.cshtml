@@ -3,16 +3,75 @@
 @{
     ViewData["Title"] = "Game Page";
 }
-<div class="container-fluid">
-    <h1>A FAIRE </h1>
-    <h2>Players :</h2>
-    @foreach(var test in Model.PlayersNames)
-{
-        <p>@test</p>
+<div class="container fluid py-4">
+    @for (int i = 0; i < Model.Players.Count; i++)
+    {
+        <div class="row mb-5">       
+            <!-- Name col border-customumn -->
+            <div class="col border-custom border-custom d-flex align-items-center">
+                <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
+            </div>
+            <!-- Scores col border-customumns -->
+            @for (int j = 0; j < Model.NumberOfRounds; j++) // MODIFIER LE 10 PAR LE NOMBRE DE ROUNDS
+            {
+                <div class="col border-custom border-custom">
+                    <div class="d-flex justify-content-between">
+                        <label class="d-inline ms-2">@Model.Players[i].Rounds[j].FirstRound</label>
+                        <label class="d-inline me-2">@Model.Players[i].Rounds[j].SecondRound</label>
+                    </div>
+                    <label class="d-block mx-auto text-center">@Model.Players[i].Rounds[j].RoundScore</label>
+                </div>
+            }
+        </div>        
     }
-    <h2>number of rounds:</h2>
-    <p> @Model.NumberOfRounds</p>
 
+    <!-- Choose the number of pins  -->
+    <form method="post" asp-action="PinsTaken">
+        <input type="hidden" name="serializedGame" value="@JsonSerializer.Serialize(Model)" />
+        <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name's turn!!</h4>
+        <div class="col-12 mb-3 d-flex justify-content-center">
+            <div class="card player-card-pins">
+                <div class="card-body align-items-center text-center">
+                    <h4 class="mb-3">How many pins fell?</h4>
+                    @for (int i = 0; i <= Model.NumberOfPins; i++) // MODIFIER LE 10 PAR LE NOMBRE DE QUILLES
+                    {
+                        <button type="button" id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
+                    }
+                    <input id="pinsScore" name="pinsScore" class="mt-3 form-control text-center" style="color:#fc5d5d; font-size: large;background-color:transparent;border:hidden;" value="0" readonly />
+                </div>
+            </div>
+        </div>
 
-
+        <!-- Confirm Button  -->
+        <div class="row" style="font-size:xx-large">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-purple btn-lg"><strong>Confirm</strong></button>
+            </div>
+        </div>
+    </form>
 </div>
+
+ @section Scripts {
+
+    <!-- script to change buttons color -->
+    <script>
+        function ColorButtons(clickedButton, indButton) {
+            for (var i = 1; i <= 10; i++) // Replace 10 with Model.NumberOfPins
+            {
+                var pinButton = document.getElementById('button' + i);
+
+                if (i <= indButton) {
+                    pinButton.style.backgroundColor = '#fc5d5d';
+                    pinButton.style.borderColor = '#fc5d5d';
+                }
+                else {
+                    pinButton.style.backgroundColor = '#585858';
+                    pinButton.style.borderColor = '#585858';
+                }
+            }
+            var pinsScore = document.getElementById('pinsScore');
+            pinsScore.value = indButton;
+        };
+    </script>
+
+}

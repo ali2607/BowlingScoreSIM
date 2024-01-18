@@ -26,6 +26,12 @@ public class Player
     {
         Name = name;
         Home = home;
+        Rounds = new List<Round>(Home.NumberOfRounds);
+        for (int i = 0; i < Home.NumberOfRounds; i++)
+        {
+            Rounds.Add(new Round());
+        }
+
         TotalScore = 0;
         CurrentRound = -1;
         Rounds = new List<Round>(home.NumberOfRounds);

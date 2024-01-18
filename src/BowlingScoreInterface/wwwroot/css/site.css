@@ -67,3 +67,37 @@ a:hover {
 .custom-form-container {
     background-color: #3a3a3a;
 }
+
+
+.bouton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid white;
+    border-radius: 20px;
+    border-color: #585858;
+    background-color: #585858;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.player-card-pins {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    height: 190px;
+}
+
+
+.border-custom {
+    border: 2px solid #8c52ff; /* Example color - Blue */
+    padding: 5px;
+}
+

@@ -15,7 +15,7 @@ public class Home
     /// <summary>
     /// List of players.
     /// </summary>
-    public List<string> Players { get; set; } = new List<string>();
+    public List<string> Players { get; set; } = [];
 
     /// <summary>
     /// amount of rounds.

@@ -23,5 +23,26 @@ namespace BowlingScoreInterface.Controllers
             }
             return View(game);
         }
+
+        public IActionResult PinsTaken(string serializedGame, int pinsScore)
+        {
+            Game? game = new();
+            try
+            {
+                game = JsonSerializer.Deserialize<Game>(serializedGame);
+            }
+            catch (JsonException e)
+            {
+                throw new JsonException("Error while deserializing the game", e);
+            }
+
+            //Mettre a jour le scoreboard
+            //Mettre a jour le joueur actuel
+            game = game.Update(pinsScore);
+
+
+            return View(nameof(Index), game);
+        }   
+
     }
 }
