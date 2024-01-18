@@ -1,7 +1,6 @@
 ﻿using BowlingScoreInterface.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BowlingScoreInterface.Tests
 {
@@ -11,8 +10,10 @@ namespace BowlingScoreInterface.Tests
         [TestMethod]
         public void DefaultConstructor_SetsDefaultValues()
         {
+            // Act
             var home = new Home();
 
+            // Assert
             Assert.IsNotNull(home.Players);
             Assert.AreEqual(0, home.Players.Count);
             Assert.AreEqual(1, home.NumberOfRounds);
@@ -21,19 +22,41 @@ namespace BowlingScoreInterface.Tests
         }
 
         [TestMethod]
-        public void SettingProperties_UpdatesValuesCorrectly()
+        public void Constructor_InitializesWithGivenValues()
         {
+            // Arrange
+            var players = new List<string> { "Alice", "Bob" };
+            var numberOfRounds = 5;
+            var numberOfPins = 8;
+            var maxPlayers = 10;
+
+            // Act
+            var home = new Home
+            {
+                Players = players,
+                NumberOfRounds = numberOfRounds,
+                NumberOfPins = numberOfPins
+            };
+
+            // Assert
+            Assert.AreEqual(players, home.Players);
+            Assert.AreEqual(numberOfRounds, home.NumberOfRounds);
+            Assert.AreEqual(numberOfPins, home.NumberOfPins);
+            Assert.AreEqual(maxPlayers, home.MaxPlayers);
+        }
+
+        [TestMethod]
+        public void Home_CanBeUsedInPlayerClass()
+        {
+            // Arrange
             var home = new Home();
+            var player = new Player("Alice", home);
 
-            home.Players = new List<string> { "Alice", "Bob" };
-            home.NumberOfRounds = 5;
-            home.NumberOfPins = 8;
+            // Act
+            var playerHome = player.Home;
 
-            Assert.AreEqual(2, home.Players.Count);
-            Assert.IsTrue(home.Players.Contains("Alice"));
-            Assert.IsTrue(home.Players.Contains("Bob"));
-            Assert.AreEqual(5, home.NumberOfRounds);
-            Assert.AreEqual(8, home.NumberOfPins);
+            // Assert
+            Assert.AreEqual(home, playerHome);
         }
     }
 }
