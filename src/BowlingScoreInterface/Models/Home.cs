@@ -20,9 +20,7 @@ public class Home
     /// <summary>
     /// amount of rounds.
     /// </summary>
-    public int NumberOfRounds { get; set; } = 1;
-
-    
+    public int NumberOfRounds { get; set; } = 10;    
 
     /// <summary>
     /// Limit of players.
