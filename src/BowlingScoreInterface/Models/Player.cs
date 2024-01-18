@@ -8,20 +8,20 @@ public class Player
     public enum SpecialRoll
     {
         Default = 0,
-        Spare=1,
-        Strike=2
+        Spare = 1,
+        Strike = 2
     }
     public List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores { get; private set; }
 
     public Home Home { get; private set; }
-    public int CurrentRound {  get; private set; } 
+    public int CurrentRound { get; private set; }
     public List<Round> Rounds { get; private set; } // for display (Ali)
 
     public int score_1, score_2;
     public int TotalScore;
     private bool displayScore;
     private int waitingToDisplay = 2; //Roll remaining to display score
-    
+
     public Player(string name, Home home)
     {
         Name = name;
@@ -39,7 +39,7 @@ public class Player
     public void Roll1()
     {
         CurrentRound++;
-        waitingToDisplay --;
+        waitingToDisplay--;
         // asks the user to enter the result
         if (score_1 < Home.NumberOfPins)
             Roll2();
@@ -51,7 +51,7 @@ public class Player
             Rounds[CurrentRound].RoundScore = " ";
             CalculateRoundScore();
         }
-        else 
+        else
             throw new Exception("Problem! Incorrect score!");
     }
     public void Roll2()
@@ -64,8 +64,8 @@ public class Player
             Rounds[CurrentRound].SecondRound = "/";
             Rounds[CurrentRound].RoundScore = " ";
         }
-            
-        else if(score_1 + score_2 < Home.NumberOfPins)
+
+        else if (score_1 + score_2 < Home.NumberOfPins)
         {
             Tab2DScores.Add((score_1, score_2, SpecialRoll.Default));
             Rounds[CurrentRound].FirstRound = score_1.ToString();
@@ -74,7 +74,7 @@ public class Player
 
             waitingToDisplay--;
         }
-        else 
+        else
             throw new Exception("Problem! Incorrect score!");
 
         CalculateRoundScore();
@@ -82,30 +82,35 @@ public class Player
     public void CalculateRoundScore()
     {
         TotalScore += score_1 + score_2;
+
         if (CurrentRound > 1)
         {
             if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Strike)
             {
-                // Previous Roll was a strike
-                if (Tab2DScores[CurrentRound - 2].specialRoll == SpecialRoll.Strike)
+                // Previous roll was a strike
+                if (CurrentRound > 2)
                 {
-                    TotalScore += score_1;
-                    Tab2DScores[CurrentRound - 1] = (score_1+ Home.NumberOfPins, null, SpecialRoll.Strike);
+                    if (Tab2DScores[CurrentRound - 2].specialRoll == SpecialRoll.Strike)
+                    {
+                        // Two consecutive strikes
+                        TotalScore += score_1;
+                        Tab2DScores[CurrentRound - 1] = (score_1 + Home.NumberOfPins, null, SpecialRoll.Strike);
+                        Rounds[CurrentRound - 1].RoundScore = (score_1 + Home.NumberOfPins + TotalScore).ToString();
+                    }
 
-                    Rounds[CurrentRound -1].RoundScore = (score_1 + Home.NumberOfPins + TotalScore).ToString();
+                    TotalScore += Tab2DScores[CurrentRound - 2].Roll1 + Tab2DScores[CurrentRound - 2].Roll2;
+                    Tab2DScores[CurrentRound - 2] = (score_1 + score_2 + 2 * (Home.NumberOfPins), null, SpecialRoll.Strike);
+                    Rounds[CurrentRound - 2].RoundScore = (score_1 + score_2 + 2 * (Home.NumberOfPins) + TotalScore).ToString();
                 }
-
-                TotalScore += score_1 + score_2;
-                Tab2DScores[CurrentRound - 2] = (score_1 + score_2+2*(Home.NumberOfPins), null, SpecialRoll.Strike);
-                Rounds[CurrentRound - 2].RoundScore = (score_1 + score_2 + 2 * (Home.NumberOfPins) + TotalScore).ToString();
             }
             else if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Spare)
             {
-                // Previous Roll was a spare
+                // Previous roll was a spare
                 TotalScore += score_1;
                 Tab2DScores[CurrentRound - 1] = (score_1 + Home.NumberOfPins, null, SpecialRoll.Spare);
                 Rounds[CurrentRound - 1].RoundScore = (score_1 + Home.NumberOfPins + TotalScore).ToString();
             }
         }
-    }
 }
+}
+
