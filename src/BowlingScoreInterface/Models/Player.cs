@@ -83,7 +83,7 @@ public class Player
     {
         TotalScore += score_1 + score_2;
 
-        if (CurrentRound > 1)
+        if (CurrentRound > 0)
         {
             if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Strike)
             {
@@ -98,7 +98,7 @@ public class Player
                         Rounds[CurrentRound - 1].RoundScore = (score_1 + Home.NumberOfPins + TotalScore).ToString();
                     }
 
-                    TotalScore += Tab2DScores[CurrentRound - 2].Roll1 + Tab2DScores[CurrentRound - 2].Roll2;
+                    TotalScore += Tab2DScores[CurrentRound - 2].Roll1 + (int) Tab2DScores[CurrentRound - 2].Roll2;
                     Tab2DScores[CurrentRound - 2] = (score_1 + score_2 + 2 * (Home.NumberOfPins), null, SpecialRoll.Strike);
                     Rounds[CurrentRound - 2].RoundScore = (score_1 + score_2 + 2 * (Home.NumberOfPins) + TotalScore).ToString();
                 }
