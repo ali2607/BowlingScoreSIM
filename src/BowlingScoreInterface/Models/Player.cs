@@ -36,12 +36,6 @@ public class Player
         CurrentRound = -1;
         Rounds = new List<Round>(home.NumberOfRounds);
         Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>(Home.NumberOfRounds);
-        for (int i = 0; i < Home.NumberOfRounds; i++)
-        {
-            Rounds.Add(new Round());
-            Tab2DScores.Add((null, null, SpecialRoll.Default));
-        }
-
     }
 
     public void Roll1()
@@ -53,7 +47,7 @@ public class Player
             Roll2();
         else if (score_1 == Home.NumberOfPins)
         {
-            Tab2DScores[CurrentRound] = (score_1, null, SpecialRoll.Strike);
+            Tab2DScores.Add((score_1, null, SpecialRoll.Strike));
             Rounds[CurrentRound].FirstRound = "X";
             Rounds[CurrentRound].SecondRound = " ";
             Rounds[CurrentRound].RoundScore = " ";
@@ -67,7 +61,7 @@ public class Player
         // asks the user to enter the result
         if (score_1 + score_2 == Home.NumberOfPins)
         {
-            Tab2DScores[CurrentRound] = (score_1, score_2, SpecialRoll.Spare);
+            Tab2DScores.Add((score_1, score_2, SpecialRoll.Spare));
             Rounds[CurrentRound].FirstRound = score_1.ToString();
             Rounds[CurrentRound].SecondRound = "/";
             Rounds[CurrentRound].RoundScore = " ";
@@ -75,7 +69,7 @@ public class Player
             
         else if(score_1 + score_2 < Home.NumberOfPins)
         {
-            Tab2DScores[CurrentRound] = (score_1, score_2, SpecialRoll.Default);
+            Tab2DScores.Add((score_1, score_2, SpecialRoll.Default));
 
             Rounds[CurrentRound].FirstRound = score_1.ToString();
             Rounds[CurrentRound].SecondRound = score_2.ToString();
