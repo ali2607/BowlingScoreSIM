@@ -36,7 +36,9 @@ public class Game
     /// <returns>the updated Game</returns>
     public Game Update(int pinsScore)
     {
-
+        //if (pinsScore < NumberOfPins) {
+        //    Player.score
+        //}
         throw new NotImplementedException();
     }
 }
