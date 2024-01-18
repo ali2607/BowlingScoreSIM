@@ -31,10 +31,8 @@ public class Player
         {
             Rounds.Add(new Round());
         }
-
         TotalScore = 0;
         CurrentRound = -1;
-        Rounds = new List<Round>(home.NumberOfRounds);
         Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>(Home.NumberOfRounds);
     }
 
@@ -58,16 +56,6 @@ public class Player
     }
     public void Roll2()
     {
-        Home home = new Home();
-        List <Round> Test = new List<Round>(home.NumberOfRounds);
-        Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n" + Test.Count + "\n\n\n\n\n\n\n\n\n\n\n\n" + home.NumberOfRounds + "\n\n\n\n\n\n\n\n\n\n\n\n");
-        for (int i = 0; i < Home.NumberOfRounds; i++)
-        {
-            Test.Add(new Round());
-        }
-        Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n" + Test.Count + "\n\n\n\n\n\n\n\n\n\n\n\n");
-
-
         // asks the user to enter the result
         if (score_1 + score_2 == Home.NumberOfPins)
         {
@@ -80,10 +68,9 @@ public class Player
         else if(score_1 + score_2 < Home.NumberOfPins)
         {
             Tab2DScores.Add((score_1, score_2, SpecialRoll.Default));
-
             Rounds[CurrentRound].FirstRound = score_1.ToString();
             Rounds[CurrentRound].SecondRound = score_2.ToString();
-            Rounds[CurrentRound].RoundScore = (score_1+score_2+TotalScore).ToString();
+            Rounds[CurrentRound].RoundScore = (score_1 + score_2 + TotalScore).ToString();
 
             waitingToDisplay--;
         }
@@ -92,7 +79,7 @@ public class Player
 
         CalculateRoundScore();
     }
-    public int CalculateRoundScore()
+    public void CalculateRoundScore()
     {
         TotalScore += score_1 + score_2;
         if (CurrentRound > 1)
@@ -120,6 +107,5 @@ public class Player
                 Rounds[CurrentRound - 1].RoundScore = (score_1 + Home.NumberOfPins + TotalScore).ToString();
             }
         }
-        throw new NotImplementedException();
     }
 }
