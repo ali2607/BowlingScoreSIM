@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace BowlingScoreInterface.Models;
 
 public class Player
@@ -15,7 +17,7 @@ public class Player
     public int CurrentRound {  get; private set; } 
     public List<Round> Rounds { get; private set; } // for display (Ali)
 
-    int score_1, score_2;
+    public int score_1, score_2;
     public int TotalScore;
     private bool displayScore;
     private int waitingToDisplay = 2; //Roll remaining to display score
@@ -26,8 +28,14 @@ public class Player
         Home = home;
         TotalScore = 0;
         CurrentRound = -1;
+        Rounds = new List<Round>(home.NumberOfRounds);
         Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>(Home.NumberOfRounds);
-        
+        for (int i = 0; i < Home.NumberOfRounds; i++)
+        {
+            Rounds.Add(new Round());
+            Tab2DScores.Add((null, null, SpecialRoll.Default));
+        }
+
     }
 
     public void Roll1()
@@ -40,7 +48,6 @@ public class Player
         else if (score_1 == Home.NumberOfPins)
         {
             Tab2DScores[CurrentRound] = (score_1, null, SpecialRoll.Strike);
-            Tab2DScores[CurrentRound] = (score_1, score_2, SpecialRoll.Spare);
             Rounds[CurrentRound].FirstRound = "X";
             Rounds[CurrentRound].SecondRound = " ";
             Rounds[CurrentRound].RoundScore = " ";
@@ -51,7 +58,6 @@ public class Player
     }
     public void Roll2()
     {
-        
         // asks the user to enter the result
         if (score_1 + score_2 == Home.NumberOfPins)
         {
@@ -79,7 +85,6 @@ public class Player
     public int CalculateRoundScore()
     {
         TotalScore += score_1 + score_2;
-
         if (CurrentRound > 1)
         {
             if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Strike)
@@ -105,7 +110,6 @@ public class Player
                 Rounds[CurrentRound - 1].RoundScore = (score_1 + Home.NumberOfPins + TotalScore).ToString();
             }
         }
-
         throw new NotImplementedException();
     }
 }
