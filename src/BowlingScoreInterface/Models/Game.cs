@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace BowlingScoreInterface.Models;
 
@@ -30,6 +31,7 @@ public class Game
     {
         Players = new(1);
         NumberOfRounds = 10;
+
     }
 
     /// <summary>
@@ -39,24 +41,29 @@ public class Game
     /// <returns>the updated Game</returns>
     public Game Update(int pinsScore)
     {
+        Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
         if (isRoll1)
         {
+            Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Players[actualplayer].UpdateRounds();
+            Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Players[actualplayer].score_1 = pinsScore;
             if (pinsScore == NumberOfPins)
             {
-                Players[actualplayer].Roll1();
                 actualplayer = (actualplayer + 1) % Players.Count();
+                Players[actualplayer].Roll1();
             }
             else
             {
                 isRoll1 = false;
             }
-            Players[actualplayer].score_1 = pinsScore;
         }
         else
         {
+            Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
             Players[actualplayer].score_2 = pinsScore;
-            isRoll1 = true;
             Players[actualplayer].Roll1();
+            isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
         }
         return this;
