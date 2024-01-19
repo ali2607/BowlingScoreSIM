@@ -5,20 +5,15 @@
 /// </summary>
 public class Leaderboard
 {
-    public List<string> Players { get; set; }
-    public int NumberOfRounds { get; set; }
-    public int NumberOfPins { get; set; }
-    public int actualplayer { get; set; }
+    public List<Player> Players { get; set; }
 
     public Leaderboard(Leaderboard sartingParameter)
     {
         Players = sartingParameter.Players;
-        NumberOfRounds = sartingParameter.NumberOfRounds;
     }
 
     public Leaderboard() : this(new Leaderboard())
     {
-        Players = new List<string>() { "Player 1" };
-        NumberOfRounds = 1;
+        Players = new(1);
     }
 }
