@@ -154,8 +154,7 @@ public class PlayerTest
         {
             if (i == 0)
             {
-                player.score_1 = 7;
-                player.score_2 = 3;
+                player.score_1 = 10;
                 player.Roll1();
             }
             else
@@ -167,7 +166,153 @@ public class PlayerTest
             Debug.WriteLine(player.TotalScore);
         }
 
-        int expectedTotalScore = 96;
+        int expectedTotalScore = 100;
+        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGameWithStrike2()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        for (int i = 0; i < home.NumberOfRounds; i++)
+        {
+            if (i == 0)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else if (i == 1)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else
+            {
+                player.score_1 = 5;
+                player.score_2 = 4;
+                player.Roll1();
+            }
+            Debug.WriteLine(player.TotalScore);
+        }
+
+        int expectedTotalScore = 116;
+        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGameWithStrike3()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        for (int i = 0; i < home.NumberOfRounds; i++)
+        {
+            if (i == 5)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else if (i == 6)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else
+            {
+                player.score_1 = 7;
+                player.score_2 = 2;
+                player.Roll1();
+            }
+            Debug.WriteLine(player.TotalScore);
+        }
+
+        int expectedTotalScore = 118;
+        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGameWithStrike4()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        for (int i = 0; i < home.NumberOfRounds; i++)
+        {
+            if (i == 5)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else if (i == 6)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else if (i == 7)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else
+            {
+                player.score_1 = 7;
+                player.score_2 = 2;
+                player.Roll1();
+            }
+            Debug.WriteLine(player.TotalScore);
+        }
+
+        int expectedTotalScore = 139;
+        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGameWithStrikeAndSpare()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        for (int i = 0; i < home.NumberOfRounds; i++)
+        {
+            if (i == 5)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else if (i == 6)
+            {
+                player.score_1 = 5;
+                player.score_2 = 5;
+                player.Roll1();
+            }
+            else if (i == 7)
+            {
+                player.score_1 = 10;
+                player.Roll1();
+            }
+            else
+            {
+                player.score_1 = 7;
+                player.score_2 = 2;
+                player.Roll1();
+            }
+            Debug.WriteLine(player.TotalScore);
+        }
+
+        int expectedTotalScore = 122;
+        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGameWithFullStrike()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        for (int i = 0; i < home.NumberOfRounds; i++)
+        {
+            player.score_1 = 10;
+            player.Roll1();
+        }
+
+        int expectedTotalScore = 270;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
 
