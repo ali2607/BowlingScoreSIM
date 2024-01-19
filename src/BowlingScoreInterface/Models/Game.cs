@@ -11,6 +11,7 @@ public class Game
     public int NumberOfRounds { get; set; }
     public int NumberOfPins { get; set; }
     public int actualplayer { get; set; }
+    public bool isRoll1 { get; set; }
 
     public Game(Home startingParameter)
     {
@@ -21,12 +22,14 @@ public class Game
         }
         NumberOfRounds = startingParameter.NumberOfRounds;
         NumberOfPins = startingParameter.NumberOfPins;
+        isRoll1 = true;
+        actualplayer = 0;
     }
 
     public Game() : this(new Home())
     {
         Players = new(1);
-        NumberOfRounds = 1;
+        NumberOfRounds = 10;
     }
 
     /// <summary>
@@ -36,7 +39,26 @@ public class Game
     /// <returns>the updated Game</returns>
     public Game Update(int pinsScore)
     {
-
-        throw new NotImplementedException();
+        if (isRoll1)
+        {
+            if (pinsScore == NumberOfPins)
+            {
+                Players[actualplayer].Roll1();
+                actualplayer = (actualplayer + 1) % Players.Count();
+            }
+            else
+            {
+                isRoll1 = false;
+            }
+            Players[actualplayer].score_1 = pinsScore;
+        }
+        else
+        {
+            Players[actualplayer].score_2 = pinsScore;
+            isRoll1 = true;
+            Players[actualplayer].Roll1();
+            actualplayer =  (actualplayer + 1) % Players.Count();
+        }
+        return this;
     }
 }
