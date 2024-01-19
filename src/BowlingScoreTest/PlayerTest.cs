@@ -645,7 +645,49 @@ public class PlayerTest
         int expectedTotalScore = 25;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
+    [TestMethod]
+    public void TestCompleteGame11()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
 
+        player.score_1 = 8;
+        player.score_2 = 1;
+
+        player.Roll1();
+
+        Assert.AreEqual("8", player.Rounds[0].FirstRound, "Le score total après une partie complète n'est pas correct.");
+        Assert.AreEqual("1", player.Rounds[0].SecondRound, "Le score total après une partie complète n'est pas correct.");
+        Assert.AreEqual("9", player.Rounds[0].RoundScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGame12()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        player.score_1 = 8;
+        player.score_2 = 2;
+
+        player.Roll1();
+
+        Assert.AreEqual("8", player.Rounds[0].FirstRound, "Le score total après une partie complète n'est pas correct.");
+        Assert.AreEqual("/", player.Rounds[0].SecondRound, "Le score total après une partie complète n'est pas correct.");
+        Assert.AreEqual(" ", player.Rounds[0].RoundScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGame13()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        player.score_1 = 10;
+        player.Roll1();
+
+        Assert.AreEqual("X", player.Rounds[0].FirstRound, "Le score total après une partie complète n'est pas correct.");
+        Assert.AreEqual(" ", player.Rounds[0].SecondRound, "Le score total après une partie complète n'est pas correct.");
+        Assert.AreEqual(" ", player.Rounds[0].RoundScore, "Le score total après une partie complète n'est pas correct.");
+    }
 
 
 
