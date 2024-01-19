@@ -35,18 +35,37 @@ public class Player
         Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>(Home.NumberOfRounds);
     }
 
-    public void Roll1()
+    public void UpdateRounds()
     {
         CurrentRound++;
-        // asks the user to enter the result
         if (score_1 < Home.NumberOfPins)
-            Roll2();
+        {
+            Rounds[CurrentRound].FirstRound = score_1.ToString();
+            Rounds[CurrentRound].SecondRound = " ";
+            Rounds[CurrentRound].RoundScore = " ";
+        }
         else if (score_1 == Home.NumberOfPins)
         {
-            Tab2DScores.Add((score_1, null, SpecialRoll.Strike));
             Rounds[CurrentRound].FirstRound = "X";
             Rounds[CurrentRound].SecondRound = " ";
             Rounds[CurrentRound].RoundScore = " ";
+        }
+        else
+        {
+            throw new Exception("Problem! Incorrect score!");
+        }
+    }
+    public void Roll1()
+    {
+
+        // asks the user to enter the result
+        if (score_1 < Home.NumberOfPins)
+        {
+            Roll2();
+        }
+        else if (score_1 == Home.NumberOfPins)
+        {
+            Tab2DScores.Add((score_1, null, SpecialRoll.Strike));
             score_2 = 0;
             CalculateRoundScore();
         }
@@ -55,6 +74,7 @@ public class Player
     }
     public void Roll2()
     {
+
         // asks the user to enter the result
         if (score_1 + score_2 == Home.NumberOfPins)
         {

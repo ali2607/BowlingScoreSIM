@@ -92,7 +92,6 @@ a:hover {
     background-color: transparent;
     color: white;
     font-size: 20px;
-    height: 190px;
 }
 
 
@@ -101,3 +100,6 @@ a:hover {
     padding: 5px;
 }
 
+.input-center{
+    padding-right:0px !important;
+}
