@@ -20,7 +20,6 @@ public class Player
     public int score_1, score_2;
     public int TotalScore;
     private bool displayScore;
-    private int waitingToDisplay = 2; //Roll remaining to display score
 
     public Player(string name, Home home)
     {
@@ -39,7 +38,6 @@ public class Player
     public void Roll1()
     {
         CurrentRound++;
-        waitingToDisplay--;
         // asks the user to enter the result
         if (score_1 < Home.NumberOfPins)
             Roll2();
@@ -72,8 +70,6 @@ public class Player
             Rounds[CurrentRound].FirstRound = score_1.ToString();
             Rounds[CurrentRound].SecondRound = score_2.ToString();
             Rounds[CurrentRound].RoundScore = (score_1 + score_2 + TotalScore).ToString();
-
-            waitingToDisplay--;
         }
         else
             throw new Exception("Problem! Incorrect score!");
