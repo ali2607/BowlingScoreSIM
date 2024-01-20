@@ -20,6 +20,7 @@ public class Player
         Score_1 = 0;
         Score_2 = 0;
         TotalScore = 0;
+        Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>();
         Rounds = new List<Round> (NumberOfRounds);
         for (int i = 0; i < NumberOfRounds; i++)
         {
@@ -103,7 +104,7 @@ public class Player
     {
         TotalScore += Score_1 + Score_2;
 
-        if (CurrentRound > 1)
+        if (CurrentRound >= 1)
         {
             if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Strike)
             {
