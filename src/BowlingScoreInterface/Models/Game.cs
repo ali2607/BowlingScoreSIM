@@ -49,8 +49,8 @@ public class Game
     {
         if (isRoll1)
         {
-            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);
             Players[actualplayer].score_1 = pinsScore;
+            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);
             if (pinsScore == NumberOfPins)
             {
                 Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
@@ -68,7 +68,7 @@ public class Game
             isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
         }
-        if (actualplayer == Players.Count() - 1) 
+        if (actualplayer == Players.Count() - 1 && isRoll1) 
         {
             CurrentRound++;
         }

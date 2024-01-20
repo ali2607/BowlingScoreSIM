@@ -25,25 +25,16 @@ public class Player
             Rounds.Add(new());
         }
     }
-    public Player(string name, List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> tab2DScores, List<Round> rounds, int score_1, int score_2, int totalScore)
-    {
-        Name = name;
-        Tab2DScores = tab2DScores;
-        Rounds = rounds;
-        this.score_1 = score_1;
-        this.score_2 = score_2;
-        TotalScore = totalScore;
-    }
+
     [JsonConstructor]
-    public Player(string name, List<Round> rounds)
+    public Player(string name, List<Round> rounds, List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores)
     {
         Name = name;
         Rounds = rounds;
 
-        // Initialisation des autres propriétés
-        Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>();
-        score_1 = 0;  // Assurez-vous que ces champs existent dans la classe
-        score_2 = 0;  // et qu'ils sont appropriés pour votre logique d'application
+        Tab2DScores = Tab2DScores;
+        score_1 = 0;
+        score_2 = 0;
         TotalScore = 0;
     }
 
@@ -83,15 +74,12 @@ public class Player
         {
             Tab2DScores.Add((score_1, score_2, SpecialRoll.Spare));
             Rounds[CurrentRound] = new() { FirstRound = score_1.ToString(), SecondRound = "/", RoundScore = String.Empty };
-
-
         }
 
         else if (score_1 + score_2 < NumberOfPins)
         {
             Tab2DScores.Add((score_1, score_2, SpecialRoll.Default));
             Rounds[CurrentRound] = new() { FirstRound = score_1.ToString(), SecondRound = score_2.ToString(), RoundScore = (score_1 + score_2 + TotalScore).ToString() };
-
         }
         else
             throw new Exception("Problem! Incorrect score!");
