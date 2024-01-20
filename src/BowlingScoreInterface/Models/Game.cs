@@ -43,8 +43,8 @@ public class Game
         {
             if (pinsScore == NumberOfPins)
             {
-                actualplayer = (actualplayer + 1) % Players.Count();
                 Players[actualplayer].Roll1();
+                actualplayer = (actualplayer + 1) % Players.Count();
             }
             else
             {
