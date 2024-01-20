@@ -50,8 +50,8 @@ public class Game
             Players[actualplayer].score_1 = pinsScore;
             if (pinsScore == NumberOfPins)
             {
-                actualplayer = (actualplayer + 1) % Players.Count();
                 Players[actualplayer].Roll1();
+                actualplayer = (actualplayer + 1) % Players.Count();
             }
             else
             {

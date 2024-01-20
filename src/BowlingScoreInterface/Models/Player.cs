@@ -5,12 +5,6 @@ namespace BowlingScoreInterface.Models;
 public class Player
 {
     public string Name { get; private set; }
-    public enum SpecialRoll
-    {
-        Default = 0,
-        Spare = 1,
-        Strike = 2
-    }
     public List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores { get; private set; }
 
     public Home Home { get; private set; }
@@ -19,7 +13,6 @@ public class Player
 
     public int score_1, score_2;
     public int TotalScore;
-    private bool displayScore;
 
  
     public Player(string name, Home home)
