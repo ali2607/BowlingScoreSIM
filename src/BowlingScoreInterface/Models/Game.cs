@@ -49,7 +49,7 @@ public class Game
     {
         if (isRoll1)
         {
-            Players[actualplayer].score_1 = pinsScore;
+            Players[actualplayer].Score_1 = pinsScore;
             Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);
             if (pinsScore == NumberOfPins)
             {
@@ -63,7 +63,7 @@ public class Game
         }
         else
         {
-            Players[actualplayer].score_2 = pinsScore;
+            Players[actualplayer].Score_2 = pinsScore;
             Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
             isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
