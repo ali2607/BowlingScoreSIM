@@ -8,6 +8,7 @@ namespace BowlingScoreInterface.Models;
 /// </summary>
 public class Game
 {
+    public int CurrentRound {  get; set; }
     public List<Player> Players { get; set; }
     public int NumberOfRounds { get; set; }
     public int NumberOfPins { get; set; }
@@ -16,22 +17,27 @@ public class Game
 
     public Game(Home startingParameter)
     {
+        NumberOfRounds = startingParameter.NumberOfRounds;
         Players = new List<Player>(startingParameter.Players.Count);
         for (int i = 0; i < startingParameter.Players.Count; i++)
         {
-            Players.Add(new Player(startingParameter.Players[i], startingParameter));
+            Players.Add(new Player(startingParameter.Players[i], NumberOfRounds));
         }
-        NumberOfRounds = startingParameter.NumberOfRounds;
         NumberOfPins = startingParameter.NumberOfPins;
+        CurrentRound = 0;
         isRoll1 = true;
         actualplayer = 0;
     }
+    public Game() {}
 
-    public Game()
+    public Game(int currentRound, List<Player> players, int numberOfRounds, int numberOfPins, int actualplayer, bool isRoll1)
     {
-       // Players = new(1);
-        //NumberOfRounds = 10;
-
+        CurrentRound = currentRound;
+        Players = players;
+        NumberOfRounds = numberOfRounds;
+        NumberOfPins = numberOfPins;
+        this.actualplayer = actualplayer;
+        this.isRoll1 = isRoll1;
     }
 
     /// <summary>
@@ -41,16 +47,13 @@ public class Game
     /// <returns>the updated Game</returns>
     public Game Update(int pinsScore)
     {
-        Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
         if (isRoll1)
         {
-            Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            Players[actualplayer].UpdateRounds();
-            Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);
             Players[actualplayer].score_1 = pinsScore;
             if (pinsScore == NumberOfPins)
             {
-                Players[actualplayer].Roll1();
+                Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
                 actualplayer = (actualplayer + 1) % Players.Count();
             }
             else
@@ -60,11 +63,14 @@ public class Game
         }
         else
         {
-            Debug.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n" + Players[actualplayer].CurrentRound + "\n\n\n\n\n\n\n\n\n\n\n\n\n");
             Players[actualplayer].score_2 = pinsScore;
-            Players[actualplayer].Roll1();
+            Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
             isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
+        }
+        if (actualplayer == Players.Count() - 1) 
+        {
+            CurrentRound++;
         }
         return this;
     }
