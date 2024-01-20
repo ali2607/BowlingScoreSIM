@@ -27,10 +27,10 @@ public class Game
         actualplayer = 0;
     }
 
-    public Game() : this(new Home())
+    public Game()
     {
-        Players = new(1);
-        NumberOfRounds = 10;
+       // Players = new(1);
+        //NumberOfRounds = 10;
 
     }
 

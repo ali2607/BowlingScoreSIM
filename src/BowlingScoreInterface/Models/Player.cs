@@ -21,6 +21,7 @@ public class Player
     public int TotalScore;
     private bool displayScore;
 
+ 
     public Player(string name, Home home)
     {
         Name = name;

@@ -6,6 +6,7 @@ namespace BowlingScoreInterface.Controllers
 {
     public class GameController : Controller
     {
+
         /// <summary>
         /// Method to return the view of the game page.
         /// </summary>
@@ -40,9 +41,7 @@ namespace BowlingScoreInterface.Controllers
             //Mettre a jour le joueur actuel
             game = game.Update(pinsScore);
 
-
             return View(nameof(Index), game);
-        }   
-
+        }
     }
 }

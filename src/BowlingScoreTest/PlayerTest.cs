@@ -40,6 +40,7 @@ public class PlayerTest
         player.score_1 = 5;
         player.score_2 = 0;
 
+        player.UpdateRounds();
         player.Roll1();
         Assert.AreEqual(5, player.TotalScore, "Le score après un seul lancer n'est pas correct.");
     }
@@ -51,6 +52,7 @@ public class PlayerTest
         player.score_1 = 5;
         player.score_2 = 5;
 
+        player.UpdateRounds();
         player.Roll1();
         Assert.AreEqual(10, player.TotalScore, "Le score après un spare n'est pas correct.");
     }
@@ -61,6 +63,7 @@ public class PlayerTest
         Player player = new Player("name", home);
         player.score_1 = 10;
 
+        player.UpdateRounds();
         player.Roll1();
         Assert.AreEqual(10, player.TotalScore, "Le score après un strike n'est pas correct.");
     }
@@ -74,6 +77,7 @@ public class PlayerTest
         {
             player.score_1 = 4;
             player.score_2 = 5;
+            player.UpdateRounds();
             player.Roll1();
         }
 
@@ -92,24 +96,28 @@ public class PlayerTest
             {
                 player.score_1 = 5;
                 player.score_2 = 5;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 1)
             {
                 player.score_1 = 5;
                 player.score_2 = 5;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 9)
             {
                 player.score_1 = 5;
                 player.score_2 = 5;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 5;
                 player.score_2 = 4;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -130,12 +138,42 @@ public class PlayerTest
             {
                 player.score_1 = 7;
                 player.score_2 = 3;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 5;
                 player.score_2 = 4;
+                player.UpdateRounds();
+                player.Roll1();
+            }
+            Debug.WriteLine(player.TotalScore);
+        }
+
+        int expectedTotalScore = 96;
+        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
+    }
+    [TestMethod]
+    public void TestCompleteGameWithSpare3()
+    {
+        Home home = new Home() { NumberOfRounds = 10 };
+        Player player = new Player("name", home);
+
+        for (int i = 0; i < home.NumberOfRounds; i++)
+        {
+            if (i == 0)
+            {
+                player.score_1 = 0;
+                player.score_2 = 10;
+                player.UpdateRounds();
+                player.Roll1();
+            }
+            else
+            {
+                player.score_1 = 5;
+                player.score_2 = 4;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -155,12 +193,14 @@ public class PlayerTest
             if (i == 0)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 5;
                 player.score_2 = 4;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -180,17 +220,20 @@ public class PlayerTest
             if (i == 0)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 1)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 5;
                 player.score_2 = 4;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -210,17 +253,20 @@ public class PlayerTest
             if (i == 5)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 6)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 7;
                 player.score_2 = 2;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -240,22 +286,26 @@ public class PlayerTest
             if (i == 5)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 6)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 7)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 7;
                 player.score_2 = 2;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -275,23 +325,27 @@ public class PlayerTest
             if (i == 5)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 6)
             {
                 player.score_1 = 5;
                 player.score_2 = 5;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else if (i == 7)
             {
                 player.score_1 = 10;
+                player.UpdateRounds();
                 player.Roll1();
             }
             else
             {
                 player.score_1 = 7;
                 player.score_2 = 2;
+                player.UpdateRounds();
                 player.Roll1();
             }
             Debug.WriteLine(player.TotalScore);
@@ -309,6 +363,7 @@ public class PlayerTest
         for (int i = 0; i < home.NumberOfRounds; i++)
         {
             player.score_1 = 10;
+            player.UpdateRounds();
             player.Roll1();
         }
 
@@ -322,17 +377,20 @@ public class PlayerTest
         Home home = new Home() { NumberOfRounds = 10 };
         Player player = new Player("name", home);
 
-                player.score_1 = 7;
-                player.score_2 = 3;
-                player.Roll1();
+        player.score_1 = 7;
+        player.score_2 = 3;
+        player.UpdateRounds();
+        player.Roll1();
 
-                player.score_1 = 5;
-                player.score_2 = 4;
-                player.Roll1();
+        player.score_1 = 5;
+        player.score_2 = 4;
+        player.UpdateRounds();
+        player.Roll1();
 
-                player.score_1 = 1;
-                player.score_2 = 9;
-                player.Roll1();
+        player.score_1 = 1;
+        player.score_2 = 9;
+        player.UpdateRounds();
+        player.Roll1();
 
 
         int expectedTotalScore = 34;
@@ -347,42 +405,52 @@ public class PlayerTest
 
         player.score_1 = 9;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 4;
         player.score_2 = 5;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 6;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 8;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 2;
         player.score_2 = 7;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 6;
         player.score_2 = 3;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 5;
         player.score_2 = 4;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 0;
         player.score_2 = 9;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 7;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 1;
         player.score_2 = 8;
+        player.UpdateRounds();
         player.Roll1();
 
 
@@ -399,34 +467,42 @@ public class PlayerTest
 
         player.score_1 = 8;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 6;
         player.score_2 = 3;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 7;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 5;
         player.score_2 = 4;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 9;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 0;
         player.score_2 = 9;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 6;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 4;
         player.score_2 = 5;
+        player.UpdateRounds();
         player.Roll1();
 
         int expectedTotalScore = 72;
@@ -442,22 +518,27 @@ public class PlayerTest
 
         player.score_1 = 4;
         player.score_2 = 5;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 8; 
+        player.score_1 = 8;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 6;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 7;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 0; 
+        player.score_1 = 0;
         player.score_2 = 8;
+        player.UpdateRounds();
         player.Roll1();
 
 
@@ -473,30 +554,37 @@ public class PlayerTest
 
         player.score_1 = 2;
         player.score_2 = 3;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 1; 
+        player.score_1 = 1;
         player.score_2 = 4;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 0;
         player.score_2 = 5;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 2;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 4; 
+        player.score_1 = 4;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 1;
         player.score_2 = 3;
+        player.UpdateRounds();
         player.Roll1();
 
 
@@ -512,30 +600,37 @@ public class PlayerTest
 
         player.score_1 = 1;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 2;
         player.score_2 = 3;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 4;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 4;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 2;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 0;
         player.score_2 = 5;
+        player.UpdateRounds();
         player.Roll1();
 
         int expectedTotalScore = 33;
@@ -549,44 +644,54 @@ public class PlayerTest
         Home home = new Home() { NumberOfRounds = 10 };
         Player player = new Player("name", home);
 
-        player.score_1 = 9; 
+        player.score_1 = 9;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 8; 
+        player.score_1 = 8;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 7; 
+        player.score_1 = 7;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 9; 
+        player.score_1 = 9;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 8; 
+        player.score_1 = 8;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 7; 
+        player.score_1 = 7;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 9; 
+        player.score_1 = 9;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 8; 
+        player.score_1 = 8;
         player.score_2 = 1;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 7; 
+        player.score_1 = 7;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
-        player.score_1 = 9; 
+        player.score_1 = 9;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         int expectedTotalScore = 90;
@@ -602,18 +707,22 @@ public class PlayerTest
 
         player.score_1 = 4;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 0;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 8;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 4;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         int expectedTotalScore = 20;
@@ -628,18 +737,22 @@ public class PlayerTest
 
         player.score_1 = 8;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 1;
         player.score_2 = 6;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 5;
         player.score_2 = 2;
+        player.UpdateRounds();
         player.Roll1();
 
         player.score_1 = 3;
         player.score_2 = 0;
+        player.UpdateRounds();
         player.Roll1();
 
         int expectedTotalScore = 25;
@@ -654,6 +767,7 @@ public class PlayerTest
         player.score_1 = 8;
         player.score_2 = 1;
 
+        player.UpdateRounds();
         player.Roll1();
 
         Assert.AreEqual("8", player.Rounds[0].FirstRound, "Le score total après une partie complète n'est pas correct.");
@@ -669,6 +783,7 @@ public class PlayerTest
         player.score_1 = 8;
         player.score_2 = 2;
 
+        player.UpdateRounds();
         player.Roll1();
 
         Assert.AreEqual("8", player.Rounds[0].FirstRound, "Le score total après une partie complète n'est pas correct.");
@@ -682,6 +797,7 @@ public class PlayerTest
         Player player = new Player("name", home);
 
         player.score_1 = 10;
+        player.UpdateRounds();
         player.Roll1();
 
         Assert.AreEqual("X", player.Rounds[0].FirstRound, "Le score total après une partie complète n'est pas correct.");
