@@ -120,3 +120,6 @@ a:hover {
 .first-round-cell {
     padding: 5px;
 }
+.bonus-cell {
+    background-color: rgba(252,93,93,0.5);
+}
