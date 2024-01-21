@@ -96,10 +96,27 @@ a:hover {
 
 
 .border-custom {
-    border: 2px solid #8c52ff; /* Example color - Blue */
+    border: 2px solid #8c52ff;
     padding: 5px;
 }
 
 .input-center{
     padding-right:0px !important;
+}
+
+.current-player {
+    background-color: rgba(140,82,255,0.3);
+}
+
+.round-cells {
+    background-color: rgba(88,88,88,0.7);
+    border: transparent;
+}
+
+.current-round {
+    background-color: rgba(252,93,93,0.5);
+}
+
+.first-round-cell {
+    padding: 5px;
 }
