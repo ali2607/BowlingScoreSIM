@@ -4,24 +4,53 @@
     ViewData["Title"] = "Game Page";
 }
 <div class="container fluid py-4">
-    @for (int i = 0; i < Model.Players.Count; i++)
-    {
-        
-        <div class="row mb-5">       
-            <!-- Name col border-customumn -->
-            <div class="col border-custom border-custom d-flex align-items-center">
-                <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
-            </div>
-            <!-- Scores col border-customumns -->
-            @for (int j = 0; j < Model.NumberOfRounds; j++)
-            {
-                <div class="col border-custom border-custom">
-                    <div class="d-flex justify-content-between">
-                        <label class="d-inline ms-2">@Model.Players[i].Rounds[j].FirstRound</label>
-                        <label class="d-inline me-2">@Model.Players[i].Rounds[j].SecondRound</label>
-                    </div>
-                    <label class="d-block mx-auto text-center">@Model.Players[i].Rounds[j].RoundScore</label>
+
+    <!-- Scoreboard -->
+    @for (int i = -1; i < Model.Players.Count; i++)
+    {        
+        <div class="row mb-5">  
+            @if (i == -1){
+                <!-- Number of Rounds -->
+                <div class="col d-flex align-items-center first-round-cell">
                 </div>
+                @for (int j = 0; j < Model.NumberOfRounds; j++)
+                {
+                    if (j == Model.CurrentRound)
+                    {
+                        <div class="col border-custom border-custom round-cells current-round">
+                            <label class="d-block mx-auto text-center">@(j + 1)</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col border-custom border-custom round-cells">
+                            <label class="d-block mx-auto text-center">@(j + 1)</label>
+                        </div>
+                    }
+                }
+            }
+            else{                
+                <!-- Name Columns -->
+                @if(i == Model.actualplayer){
+                    <div class="col border-custom border-custom d-flex align-items-center current-player">
+                        <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
+                    </div>
+                }else{
+                    <div class="col border-custom border-custom d-flex align-items-center">
+                        <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
+                    </div>
+                }
+                <!-- Scores Columns -->
+                @for (int j = 0; j < Model.NumberOfRounds; j++)
+                {
+                    <div class="col border-custom border-custom">
+                        <div class="d-flex justify-content-between">
+                            <label class="d-inline ms-2">@Model.Players[i].Rounds[j].FirstRound</label>
+                            <label class="d-inline me-2">@Model.Players[i].Rounds[j].SecondRound</label>
+                        </div>
+                        <label class="d-block mx-auto text-center">@Model.Players[i].Rounds[j].RoundScore</label>
+                    </div>
+                }
             }
         </div>        
     }
@@ -29,12 +58,14 @@
     <!-- Choose the number of pins  -->
     <form method="post" asp-action="PinsTaken">
         <input type="hidden" name="serializedGame" value="@JsonSerializer.Serialize(Model)" />
-        <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name's turn!!</h4>
+        @{string rollNumber = Model.isRoll1 ? "first" : "second";}
+        <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name's turn!! - @rollNumber roll</h4>
         <div class="col-12 mb-3 d-flex justify-content-center">
             <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
                     <h4 class="mb-3">How many pins fell?</h4>
-                    @for (int i = 0; i <= Model.NumberOfPins; i++)
+                    @{int Pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;}
+                    @for (int i = 0; i <= Pins; i++)
                     {
                         <button type="button" id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
                     }
@@ -57,8 +88,8 @@
     <!-- script to change buttons color -->
     <script>
         function ColorButtons(clickedButton, indButton) {
-            for (var i = 1; i <= @Model.NumberOfPins; i++) // Replace 10 with Model.NumberOfPins
-            {
+            var Pins = @(Model.isRoll1 ? @Model.NumberOfPins : @Model.NumberOfPins - @Model.Players[Model.actualplayer].Score_1);
+            for (var i = 1; i <= Pins; i++) {
                 var pinButton = document.getElementById('button' + i);
 
                 if (i <= indButton) {
