@@ -994,5 +994,28 @@ public class PlayerTest
         Assert.AreEqual("16", player.Rounds[1].RoundScore, "Le remplissage de rounds n'est pas correct.");
 
     }
+    [TestMethod]
+    public void TestDisplayWithSixPins2()
+    {
+        Player player = new Player("name", 10);
+        int NumberOfPins = 6;
 
+        player.Score_1 = NumberOfPins;
+        player.UpdateRounds(NumberOfPins, 0);
+        player.Roll1(NumberOfPins, 0);
+
+        Assert.AreEqual("X", player.Rounds[0].FirstRound, "Le score total après un lancé n'est pas correct.");
+        Assert.AreEqual(String.Empty, player.Rounds[0].SecondRound, "Le remplissage de rounds n'est pas correct.");
+        Assert.AreEqual(String.Empty, player.Rounds[0].RoundScore, "Le remplissage de rounds n'est pas correct.");
+
+        player.Score_1 = NumberOfPins;
+        player.UpdateRounds(NumberOfPins, 1);
+        player.Roll1(NumberOfPins, 1);
+
+        Assert.AreEqual("12", player.Rounds[0].RoundScore, "Le remplissage de rounds n'est pas correct.");
+        Assert.AreEqual("X", player.Rounds[1].FirstRound, "Le score total après un lancé n'est pas correct.");
+        Assert.AreEqual(string.Empty, player.Rounds[1].SecondRound, "Le remplissage de rounds n'est pas correct.");
+        Assert.AreEqual("18", player.Rounds[1].RoundScore, "Le remplissage de rounds n'est pas correct.");
+
+    }
 }
