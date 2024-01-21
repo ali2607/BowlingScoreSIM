@@ -991,7 +991,7 @@ public class PlayerTest
         Assert.AreEqual("11", player.Rounds[0].RoundScore, "Le remplissage de rounds n'est pas correct.");
         Assert.AreEqual("2", player.Rounds[1].FirstRound, "Le score total après un lancé n'est pas correct.");
         Assert.AreEqual("3", player.Rounds[1].SecondRound, "Le remplissage de rounds n'est pas correct.");
-        Assert.AreEqual("17", player.Rounds[1].RoundScore, "Le remplissage de rounds n'est pas correct.");
+        Assert.AreEqual("16", player.Rounds[1].RoundScore, "Le remplissage de rounds n'est pas correct.");
 
     }
 

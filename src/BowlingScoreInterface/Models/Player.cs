@@ -74,6 +74,7 @@ public class Player
         {
             Tab2DScores.Add((Score_1, null, SpecialRoll.Strike));
             Score_2 = 0;
+            TotalScore += Score_1 + Score_2;
             CalculateRoundScore(NumberOfPins, CurrentRound);
         }
         else
@@ -81,6 +82,7 @@ public class Player
     }
     public void Roll2(int NumberOfPins, int CurrentRound)
     {
+        TotalScore += Score_1 + Score_2;
         if (Score_1 + Score_2 == NumberOfPins)
         {
             Tab2DScores.Add((Score_1, Score_2, SpecialRoll.Spare));
@@ -90,7 +92,7 @@ public class Player
         else if (Score_1 + Score_2 < NumberOfPins)
         {
             Tab2DScores.Add((Score_1, Score_2, SpecialRoll.Default));
-            Rounds[CurrentRound] = new() { FirstRound = Score_1.ToString(), SecondRound = Score_2.ToString(), RoundScore = (Score_1 + Score_2 + TotalScore).ToString() };
+            Rounds[CurrentRound] = new() { FirstRound = Score_1.ToString(), SecondRound = Score_2.ToString(), RoundScore = TotalScore.ToString() };
         }
         else
             throw new Exception("Problem! Incorrect score!");
@@ -99,8 +101,6 @@ public class Player
     }
     public void CalculateRoundScore(int NumberOfPins, int CurrentRound)
     {
-        TotalScore += Score_1 + Score_2;
-
         if (CurrentRound > 0)
         {
             if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Strike)
@@ -115,6 +115,8 @@ public class Player
                 }
                 Tab2DScores[CurrentRound - 1] = (Score_1 + Score_2 + (NumberOfPins), null, SpecialRoll.Strike);
                 Rounds[CurrentRound - 1].RoundScore = TotalScore.ToString();
+                Rounds[CurrentRound].RoundScore = (TotalScore + Score_1 + Score_2).ToString();
+
                 TotalScore += Score_1 + Score_2;
             }
             else if (Tab2DScores[CurrentRound - 1].specialRoll == SpecialRoll.Spare)
