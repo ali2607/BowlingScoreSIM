@@ -46,7 +46,7 @@
                     </div>
                 }
                 <!-- Scores Columns and Rows -->
-                @for (int j = 0; j < Model.NumberOfRounds; j++)
+                @for (int j = 0; j < Model.NumberOfRounds-1; j++)
                 {
                     
                     <div class="col border-custom border-custom">
@@ -83,6 +83,7 @@
                     <h4 class="mb-3">How many pins fell?</h4>
                     @{
                         int pins;
+                        // If we are on bonus round - roll 2
                         if (Model.Players[Model.actualplayer].Rounds[^1].FirstRound == "X")
                         {
                             pins = Model.NumberOfPins;
@@ -118,9 +119,18 @@
         function ColorButtons(clickedButton, indButton) {
 
             // Pins remaining
-            var Pins = @(Model.isRoll1 ? @Model.NumberOfPins : @Model.NumberOfPins - @Model.Players[Model.actualplayer].Score_1);
+            var pins = @(Model.isRoll1 ? @Model.NumberOfPins : @Model.NumberOfPins - @Model.Players[Model.actualplayer].Score_1);
 
-            for (var i = 1; i <= Pins; i++) {
+            // if (Model.Players[Model.actualplayer].Rounds[^1].FirstRound == "X")
+            // {
+            //     pins = Model.NumberOfPins;
+            // }
+            // else
+            // {
+            //     pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;
+            // }
+
+            for (var i = 1; i <= pins; i++) {
                 var pinButton = document.getElementById('button' + i);
 
                 // Buttons on the left of the selected one are colored in red (except 0)
