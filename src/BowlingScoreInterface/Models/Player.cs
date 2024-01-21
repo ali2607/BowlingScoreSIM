@@ -6,7 +6,7 @@ namespace BowlingScoreInterface.Models;
 public class Player
 {
     public string Name { get; private set; }
-    public List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores { get; private set; }
+    public List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores { get; set; }
     public List<Round> Rounds { get; private set; }
 
     public int Score_1 { get; set;}
@@ -42,10 +42,9 @@ public class Player
         Name = name;
         Rounds = rounds;
 
-        // Initialisation des autres propriétés
         Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>();
-        Score_1 = 0;  // Assurez-vous que ces champs existent dans la classe
-        Score_2 = 0;  // et qu'ils sont appropriés pour votre logique d'application
+        Score_1 = 0;
+        Score_2 = 0; 
         TotalScore = 0;
     }
 
