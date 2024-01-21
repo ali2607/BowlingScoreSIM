@@ -13,6 +13,8 @@ public class Player
     public int Score_2 { get; set; }
     public int TotalScore { get; set; }
 
+    public SpecialRoll BonusRoll { get; set; }
+
  
     public Player(string name, int NumberOfRounds)
     {
@@ -22,7 +24,7 @@ public class Player
         TotalScore = 0;
         Tab2DScores = new List<(int Roll1, int? Roll2, SpecialRoll specialRoll)>();
         Rounds = new List<Round> (NumberOfRounds);
-        for (int i = 0; i < NumberOfRounds + 1; i++)
+        for (int i = 0; i < NumberOfRounds; i++)
         {
             Rounds.Add(new());
         }
@@ -135,4 +137,3 @@ public class Player
         }
     }
 }
-

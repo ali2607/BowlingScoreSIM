@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace BowlingScoreInterface.Models;
@@ -17,7 +17,7 @@ public class Game
 
     public Game(Home startingParameter)
     {
-        NumberOfRounds = startingParameter.NumberOfRounds;
+        NumberOfRounds = startingParameter.NumberOfRounds + 1;
         Players = new List<Player>(startingParameter.Players.Count);
         for (int i = 0; i < startingParameter.Players.Count; i++)
         {
@@ -47,14 +47,29 @@ public class Game
     /// <returns>the updated Game</returns>
     public Game Update(int pinsScore)
     {
+        if (CurrentRound == NumberOfRounds - 1)
+        {
+            if (Players[actualplayer].BonusRoll == SpecialRoll.Default)
+            {
+                return this;
+            }
+        }
         if (isRoll1)
         {
             Players[actualplayer].Score_1 = pinsScore;
-            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);
+            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);              
             if (pinsScore == NumberOfPins)
             {
                 Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
-                actualplayer = (actualplayer + 1) % Players.Count();
+                if (CurrentRound == NumberOfRounds-2)
+                {
+                    Players[actualplayer].BonusRoll = SpecialRoll.Strike;
+                }
+                else
+                {
+                    isRoll1 = true;
+                    actualplayer = (actualplayer + 1) % Players.Count();
+                }
             }
             else
             {
@@ -65,14 +80,18 @@ public class Game
         {
             Players[actualplayer].Score_2 = pinsScore;
             Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
+            if (CurrentRound == NumberOfRounds-2 && Players[actualplayer].Score_1 + Players[actualplayer].Score_2 == NumberOfPins)
+            {
+                Players[actualplayer].BonusRoll = SpecialRoll.Spare;
+            }
             isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
         }
-      /*  if (CurrentRound == NumberOfRounds && (Players[actualplayer - 1].Rounds[CurrentRound].FirstRound == "X" || Players[actualplayer -1].Rounds[CurrentRound].SecondRound == "/"))
+        if (CurrentRound == NumberOfRounds -1 && isRoll1 && Players.Count!=1 && Players[^1].Rounds[^1].RoundScore==String.Empty)
         {
-            Gérer le lancé en plus 
-        }*/
-        if (actualplayer == 0 && isRoll1) 
+            CurrentRound--;
+        }
+        if ((actualplayer == 0 && isRoll1) || (CurrentRound == NumberOfRounds - 2 && Players[actualplayer].BonusRoll != SpecialRoll.Default && isRoll1))
         {
             CurrentRound++;
         }

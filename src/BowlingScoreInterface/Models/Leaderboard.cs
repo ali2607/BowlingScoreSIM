@@ -5,15 +5,12 @@
 /// </summary>
 public class Leaderboard
 {
-    public List<Player> Players { get; set; }
+    public (string Name,int Score)[] PlayerLeaderboard { get; set; }
 
-    public Leaderboard(Leaderboard sartingParameter)
+    public Leaderboard((string,int)[] playerLeaderboard)
     {
-        Players = sartingParameter.Players;
+        PlayerLeaderboard = playerLeaderboard;
     }
 
-    public Leaderboard() : this(new Leaderboard())
-    {
-        Players = new(1);
-    }
+
 }

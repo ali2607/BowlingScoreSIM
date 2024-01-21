@@ -10,10 +10,19 @@ namespace BowlingScoreInterface.Controllers
         /// Method to return the view of the Leaderboard page.
         /// </summary>
         /// <returns>The main view.</returns>
-        public IActionResult Index(string serializedResult)
+        public IActionResult Index(string[] names,int[] scores)
         {
-            return View();
+            (string, int)[] playerLeaderboard = new (string, int)[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                playerLeaderboard[i] = (names[i], scores[i]);
+            }
+            return View(new Leaderboard(playerLeaderboard));
         }
 
+        public IActionResult Restart()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
