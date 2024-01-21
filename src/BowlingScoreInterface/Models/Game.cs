@@ -68,7 +68,7 @@ public class Game
             isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
         }
-        if (actualplayer == Players.Count() - 1 && isRoll1) 
+        if (actualplayer == 0 && isRoll1) 
         {
             CurrentRound++;
         }
