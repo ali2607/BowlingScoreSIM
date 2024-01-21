@@ -57,13 +57,32 @@ public class Game
         if (isRoll1)
         {
             Players[actualplayer].Score_1 = pinsScore;
-            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);              
-            if (pinsScore == NumberOfPins)
+            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);   
+            if (Players[actualplayer].BonusRoll == SpecialRoll.Spare)
+            {
+                Players[actualplayer].Score_2 = 0;
+                Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
+                if (actualplayer == Players.Count() - 1)
+                {
+                    CurrentRound++;
+                    return this;
+                }
+                else
+                {
+                    actualplayer = (actualplayer + 1) % Players.Count();
+                    CurrentRound--;
+                }
+            }
+            else if (pinsScore == NumberOfPins)
             {
                 Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
                 if (CurrentRound == NumberOfRounds-2)
                 {
                     Players[actualplayer].BonusRoll = SpecialRoll.Strike;
+                }
+                else if (CurrentRound == NumberOfRounds - 1)
+                {
+                    isRoll1 = false;
                 }
                 else
                 {
@@ -83,9 +102,13 @@ public class Game
             if (CurrentRound == NumberOfRounds-2 && Players[actualplayer].Score_1 + Players[actualplayer].Score_2 == NumberOfPins)
             {
                 Players[actualplayer].BonusRoll = SpecialRoll.Spare;
+                isRoll1 = true;
             }
-            isRoll1 = true;
-            actualplayer =  (actualplayer + 1) % Players.Count();
+            else
+            {
+                isRoll1 = true;
+                actualplayer = (actualplayer + 1) % Players.Count();
+            }
         }
         if (CurrentRound == NumberOfRounds -1 && isRoll1 && Players.Count!=1 && Players[^1].Rounds[^1].RoundScore==String.Empty)
         {
