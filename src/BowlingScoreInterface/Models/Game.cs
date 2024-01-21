@@ -68,10 +68,16 @@ public class Game
             isRoll1 = true;
             actualplayer =  (actualplayer + 1) % Players.Count();
         }
+      /*  if (CurrentRound == NumberOfRounds && (Players[actualplayer - 1].Rounds[CurrentRound].FirstRound == "X" || Players[actualplayer -1].Rounds[CurrentRound].SecondRound == "/"))
+        {
+            Gérer le lancé en plus 
+        }*/
         if (actualplayer == 0 && isRoll1) 
         {
             CurrentRound++;
         }
+
+       
         return this;
     }
 }
