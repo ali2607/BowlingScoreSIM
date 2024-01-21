@@ -75,8 +75,19 @@
             <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
                     <h4 class="mb-3">How many pins fell?</h4>
-                    @{int Pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;}
-                    @for (int i = 0; i <= Pins; i++)
+                    @{
+                        int pins;
+                        if (Model.Players[Model.actualplayer].Rounds[^1].FirstRound == "X")
+                        {
+                            pins = Model.NumberOfPins;
+                        }
+                        else
+                        {
+                            pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;
+
+                        }
+                    }
+                    @for (int i = 0; i <= pins; i++)
                     {
                         <button type="button" id="button@(i)" class="bouton btn btn-secondary" onclick="ColorButtons(this,@i)">@i</button>
                     }
