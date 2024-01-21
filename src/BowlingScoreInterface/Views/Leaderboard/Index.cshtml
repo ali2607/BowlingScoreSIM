@@ -9,6 +9,7 @@
 
     <!-- Leaderboard -->
     <table class="table table-sm">
+        <!-- First row with titles of columns -->
         <thead style="color: white;">
             <tr>
                 <th scope="col" style="width: 3%"></th>
@@ -16,6 +17,7 @@
                 <th scope="col" style="width: 50%">Score</th>
             </tr>
         </thead>
+        <!-- Players sorted with their score -->
         <tbody style="color: white;">
             @for (int i = 1; i <= Model.PlayerLeaderboard.Length; i++)
             {
@@ -28,6 +30,7 @@
         </tbody>
     </table>
 
+    <!-- Name of the winner -->
     <h4 class="mt-5 mb-5 text-center" style="color:#fc5d5d">@Model.PlayerLeaderboard[0].Name Wins!</h4>
 
     <!-- Restart Button -->

@@ -15,7 +15,7 @@
                 </div>
                 @for (int j = 0; j < Model.NumberOfRounds; j++)
                 {
-                    if (j == Model.CurrentRound)
+                    if (j == Model.CurrentRound) // Color Current Round
                     {
                         <div class="col border-custom border-custom round-cells current-round">
                             <label class="d-block mx-auto text-center">@(j + 1)</label>
@@ -28,13 +28,15 @@
                         </div>
                     }
                 }
+                <!-- Bonus Round -->
                 <div class="col border-custom border-custom round-cells">
                     <label class="d-block mx-auto text-center">Bonus</label>
                 </div>
             }
             else{                
-                <!-- Name Columns -->
-                @if(i == Model.actualplayer){
+                <!-- Name Rows -->
+                @if (i == Model.actualplayer) // Color Current Player
+                { 
                     <div class="col border-custom border-custom d-flex align-items-center current-player">
                         <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
                     </div>
@@ -43,7 +45,7 @@
                         <span class="d-block mx-auto text-center">@Model.Players[i].Name</span>
                     </div>
                 }
-                <!-- Scores Columns -->
+                <!-- Scores Columns and Rows -->
                 @for (int j = 0; j < Model.NumberOfRounds; j++)
                 {
                     <div class="col border-custom border-custom">
@@ -54,6 +56,7 @@
                         <label class="d-block mx-auto text-center">@Model.Players[i].Rounds[j].RoundScore</label>
                     </div>
                 }
+                <!-- Bonus scores -->
                 <div class="col border-custom bonus-cell">
                     <div class="d-flex justify-content-between">
                         <label class="d-inline ms-2">t1</label>
@@ -65,15 +68,20 @@
         </div>        
     }
 
-    <!-- Choose the number of pins  -->
     <form method="post" asp-action="PinsTaken">
         <input type="hidden" name="serializedGame" value="@JsonSerializer.Serialize(Model)" />
-        @{string rollNumber = Model.isRoll1 ? "first" : "second";}
+
+        <!-- Show the current player and its number of roll -->
+        @{string rollNumber = Model.isRoll1 ? "first" : "second";} 
         <h4 class="mb-3 text-center" style="color:#fc5d5d">@Model.Players[Model.actualplayer].Name's turn!! - @rollNumber roll</h4>
+
+        <!-- Choose the number of pins  -->
         <div class="col-12 mb-3 d-flex justify-content-center">
             <div class="card player-card-pins">
                 <div class="card-body align-items-center text-center">
                     <h4 class="mb-3">How many pins fell?</h4>
+
+                    <!-- Show pins remaining -->
                     @{int Pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;}
                     @for (int i = 0; i <= Pins; i++)
                     {
@@ -98,19 +106,26 @@
     <!-- script to change buttons color -->
     <script>
         function ColorButtons(clickedButton, indButton) {
+
+            // Pins remaining
             var Pins = @(Model.isRoll1 ? @Model.NumberOfPins : @Model.NumberOfPins - @Model.Players[Model.actualplayer].Score_1);
+
             for (var i = 1; i <= Pins; i++) {
                 var pinButton = document.getElementById('button' + i);
 
+                // Buttons on the left of the selected one are colored in red (except 0)
                 if (i <= indButton) {
                     pinButton.style.backgroundColor = '#fc5d5d';
                     pinButton.style.borderColor = '#fc5d5d';
                 }
+                // Buttons on the left of the selected one are colored in grey
                 else {
                     pinButton.style.backgroundColor = '#585858';
                     pinButton.style.borderColor = '#585858';
                 }
             }
+
+            // Update printed score
             var pinsScore = document.getElementById('pinsScore');
             pinsScore.value = indButton;
         };
