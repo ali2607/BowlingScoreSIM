@@ -13,7 +13,7 @@
             @if (i == -1){
                 <div class="col d-flex align-items-center first-round-cell">
                 </div>
-                @for (int j = 0; j < Model.NumberOfRounds; j++)
+                @for (int j = 0; j < Model.NumberOfRounds - 1 ; j++)
                 {
                     if (j == Model.CurrentRound)
                     {
@@ -44,8 +44,9 @@
                     </div>
                 }
                 <!-- Scores Columns -->
-                @for (int j = 0; j < Model.NumberOfRounds; j++)
+                @for (int j = 0; j < Model.NumberOfRounds - 1; j++)
                 {
+                    
                     <div class="col border-custom border-custom">
                         <div class="d-flex justify-content-between">
                             <label class="d-inline ms-2">@Model.Players[i].Rounds[j].FirstRound</label>
@@ -56,10 +57,10 @@
                 }
                 <div class="col border-custom bonus-cell">
                     <div class="d-flex justify-content-between">
-                        <label class="d-inline ms-2">t1</label>
-                        <label class="d-inline me-2">t2</label>
+                        <label class="d-inline ms-2">@Model.Players[i].Rounds[Model.NumberOfRounds -1].FirstRound</label>
+                        <label class="d-inline me-2">@Model.Players[i].Rounds[Model.NumberOfRounds -1].SecondRound</label>
                     </div>
-                    <label class="d-block mx-auto text-center">tot</label>
+                    <label class="d-block mx-auto text-center">@Model.Players[i].Rounds[Model.NumberOfRounds - 1].RoundScore</label>
                 </div>
             }
         </div>        

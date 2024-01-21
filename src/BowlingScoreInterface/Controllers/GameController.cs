@@ -41,8 +41,9 @@ namespace BowlingScoreInterface.Controllers
             //Mettre a jour le joueur actuel
             game = game.Update(pinsScore);
 
-            if(game.CurrentRound == game.NumberOfRounds)
+            if ((game.Players[^1].BonusRoll == SpecialRoll.Default && game.CurrentRound == game.NumberOfRounds - 1 && game.Players[^1].Rounds[game.NumberOfRounds-2].RoundScore != String.Empty) ||((game.Players[^1].BonusRoll != SpecialRoll.Default && game.CurrentRound == game.NumberOfRounds)))
             {
+
                 string[] playerNames = new string[game.Players.Count];
                 int[] playerScores = new int[game.Players.Count];
 

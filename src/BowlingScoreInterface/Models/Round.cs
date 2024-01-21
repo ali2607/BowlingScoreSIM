@@ -15,8 +15,8 @@ public class Round
 
     public Round()
     {
-        FirstRound = " ";
-        SecondRound = " ";
-        RoundScore = " ";
+        FirstRound = String.Empty;
+        SecondRound = String.Empty;
+        RoundScore = String.Empty;
     }
 }
