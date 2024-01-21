@@ -12,7 +12,7 @@ __Test Framework__ : MSTest
 __Tools__: Github - Visual Studio
 # Team Skills
   - __Léo__: VB.NET
-  - __Elie__: UNITY Expert (C#)
+  - __Elie__: UNITY (C#)
   - __Ali__: .NET
   - __Denis__: Continuous Integration + C#
   - __Kamil__: .NET
