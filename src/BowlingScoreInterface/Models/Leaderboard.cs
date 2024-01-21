@@ -16,4 +16,5 @@ public class Leaderboard
     {
         Players = new(1);
     }
+
 }
