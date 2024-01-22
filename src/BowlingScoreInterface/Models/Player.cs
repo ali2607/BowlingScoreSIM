@@ -43,6 +43,9 @@ public class Player
     /// </summary>
     public SpecialRoll BonusRoll { get; set; }
 
+    /// <summary>
+    /// Boolean for a special case.
+    /// </summary>
     public bool Problem { get; set; } = true;
 
     /// <summary>
@@ -126,26 +129,38 @@ public class Player
     /// <param name="CurrentRound">The current round number.</param>
     public void Roll1(int NumberOfPins, int CurrentRound)
     {
+        // Check if the score of the first roll is less than the total number of pins (not a strike).
         if (Score_1 < NumberOfPins)
         {
+            // If so, proceed to the second roll.
             Roll2(NumberOfPins, CurrentRound);
         }
-        else if (Score_1 == NumberOfPins)
+        else if (Score_1 == NumberOfPins) // Check if the player scores a strike.
         {
+            // Add the strike to the player's score history.
             Tab2DScores.Add((Score_1, null, SpecialRoll.Strike));
-            if (CurrentRound != Rounds.Count() - 1)
+
+            // Special handling for the last round.
+            if (CurrentRound != Rounds.Count - 1)
             {
+                // Reset the second roll score as the player won't roll again in this round.
                 Score_2 = 0;
             }
             else if (Rounds[CurrentRound].RoundScore != String.Empty)
             {
+                // If the round score is already recorded, reset the first roll score.
                 Score_1 = 0;
             }
+
+            // Update the total score and calculate the round score.
             TotalScore += Score_1 + Score_2;
             CalculateRoundScore(NumberOfPins, CurrentRound);
         }
         else
+        {
+            // Throw an exception if the score is incorrect.
             throw new Exception("Problem! Incorrect score!");
+        }
     }
 
     /// <summary>
@@ -155,24 +170,33 @@ public class Player
     /// <param name="CurrentRound">The current round number.</param>
     public void Roll2(int NumberOfPins, int CurrentRound)
     {
+        // Update the total score by adding the scores from the first and second rolls.
         TotalScore += Score_1 + Score_2;
+
+        // Check if the sum of Score_1 and Score_2 equals the total number of pins, indicating a spare.
         if (Score_1 + Score_2 == NumberOfPins)
         {
+            // Add the spare to the player's score history.
             Tab2DScores.Add((Score_1, Score_2, SpecialRoll.Spare));
+
+            // Update the current round's data to reflect the spare.
             Rounds[CurrentRound] = new() { FirstRound = Score_1.ToString(), SecondRound = "/", RoundScore = String.Empty };
-    
         }
-
-
-        else if (Score_1 + Score_2 < NumberOfPins)
+        else if (Score_1 + Score_2 < NumberOfPins) // Check if the total score is less than the number of pins (no strike or spare).
         {
+            // Add a default roll (no strike or spare) to the score history.
             Tab2DScores.Add((Score_1, Score_2, SpecialRoll.Default));
+
+            // Update the round's data with the scores and the total score.
             Rounds[CurrentRound] = new() { FirstRound = Score_1.ToString(), SecondRound = Score_2.ToString(), RoundScore = TotalScore.ToString() };
-        
         }
         else
+        {
+            // Throw an exception if the total of Score_1 and Score_2 is greater than the number of pins, which should not happen.
             throw new Exception("Problem! Incorrect score!");
+        }
 
+        // Calculate the round score, considering strikes and spares from previous rounds.
         CalculateRoundScore(NumberOfPins, CurrentRound);
     }
 
@@ -183,49 +207,48 @@ public class Player
     /// <param name="CurrentRound">The current round number.</param>
     public void CalculateRoundScore(int NumberOfPins, int CurrentRound)
     {
-
+        // Check if the current round is not the first one.
         if (CurrentRound > 0)
         {
-
+            // Check if the previous round was a strike.
             if (Rounds[CurrentRound - 1].FirstRound == "X")
             {
-
+                // Handle the scenario of two consecutive strikes.
                 if (CurrentRound > 1 && Rounds[CurrentRound - 2].FirstRound == "X")
                 {
-                    // Two consecutive strikes
-                    if (Problem)
+                    // Special handling for scoring when there are two consecutive strikes.
+                    if (Problem) // 'Problem' indicates a special condition needing attention.
                     {
-                        if (CurrentRound == Rounds.Count() - 1)
+                        if (CurrentRound == Rounds.Count - 1)
                         {
                             Problem = false;
                         }
-                        Rounds[CurrentRound - 2].RoundScore = (int.Parse(Rounds[CurrentRound - 2].RoundScore) + Score_1).ToString();  //((TotalScore - Score_2)).ToString();
+                        // Update the score of the round before the last strike.
+                        Rounds[CurrentRound - 2].RoundScore = (int.Parse(Rounds[CurrentRound - 2].RoundScore) + Score_1).ToString();
                         TotalScore += Score_1;
                     }
-                    //    Tab2DScores[CurrentRound - 1] = (Score_1 + NumberOfPins, null, SpecialRoll.Strike);
                 }
-                // Tab2DScores[CurrentRound - 1] = (Score_1 + Score_2 + (NumberOfPins), null, SpecialRoll.Strike);
+                // Update the score for the last strike.
                 Rounds[CurrentRound - 1].RoundScore = TotalScore.ToString();
-
                 Rounds[CurrentRound].RoundScore = (TotalScore + Score_1 + Score_2).ToString();
                 TotalScore += Score_1 + Score_2;
-                
-
             }
-            else if (Rounds[CurrentRound - 1].SecondRound == "/")
+            else if (Rounds[CurrentRound - 1].SecondRound == "/") // Check if the previous round was a spare.
             {
-                // Previous roll was a spare
-                //Tab2DScores[CurrentRound - 1] = (Score_1 + NumberOfPins, null, SpecialRoll.Spare);
+                // Update the score of the spare round.
                 Rounds[CurrentRound - 1].RoundScore = (TotalScore - Score_2).ToString();
                 TotalScore += Score_1;
-                Rounds[CurrentRound].RoundScore = (TotalScore).ToString();
+                Rounds[CurrentRound].RoundScore = TotalScore.ToString();
             }
-
         }
-        if (CurrentRound == Rounds.Count() - 1)
+
+        // Special handling for the last round.
+        if (CurrentRound == Rounds.Count - 1)
         {
+            // Adjust the total score for the last round.
             TotalScore -= (Score_1 + Score_2);
             Rounds[CurrentRound].RoundScore = (int.Parse(Rounds[CurrentRound].RoundScore) - (Score_1 + Score_2)).ToString();
         }
     }
+
 }

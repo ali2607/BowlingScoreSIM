@@ -44,10 +44,9 @@ namespace BowlingScoreInterface.Controllers
                 throw new JsonException("Error while deserializing the game", e);
             }
 
-            //Mettre a jour le scoreboard
-            //Mettre a jour le joueur actuel
             game = game.Update(pinsScore);
 
+            // Check all cases for the end of the game
             if ((game.Players[^1].BonusRoll == SpecialRoll.Default && game.CurrentRound == game.NumberOfRounds - 1 && game.Players[^1].Rounds[game.NumberOfRounds-2].RoundScore != String.Empty) ||((game.Players[^1].BonusRoll != SpecialRoll.Default && game.CurrentRound == game.NumberOfRounds)))
             {
 
@@ -66,12 +65,12 @@ namespace BowlingScoreInterface.Controllers
                     {
                         if (playerScores[i] < playerScores[j])
                         {
-                            // Échanger les scores
+                            // Swap scores
                             int tempScore = playerScores[i];
                             playerScores[i] = playerScores[j];
                             playerScores[j] = tempScore;
 
-                            // Échanger les noms correspondants
+                            // Swap names
                             string tempName = playerNames[i];
                             playerNames[i] = playerNames[j];
                             playerNames[j] = tempName;

@@ -91,36 +91,45 @@ public class Game
     /// </remarks>
     public Game Update(int pinsScore)
     {
+        // Check if it's the last round and if the current player does not have a bonus roll.
         if (CurrentRound == NumberOfRounds - 1)
         {
             if (Players[actualplayer].BonusRoll == SpecialRoll.Default)
             {
-                return this;
+                return this; // If so, no further action is taken.
             }
         }
+
+        // Handle the logic for the first roll of a player's turn.
         if (isRoll1)
         {
+            // Set the score for the first roll and update the round information.
             Players[actualplayer].Score_1 = pinsScore;
-            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);   
+            Players[actualplayer].UpdateRounds(NumberOfPins, CurrentRound);
+
+            // Check for spare in the previous round and reset the second roll score.
             if (Players[actualplayer].BonusRoll == SpecialRoll.Spare)
             {
                 Players[actualplayer].Score_2 = 0;
                 Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
-                if (actualplayer == Players.Count() - 1)
+
+                // If it's the last player, increment the round. Otherwise, switch to the next player.
+                if (actualplayer == Players.Count - 1)
                 {
                     CurrentRound++;
                     return this;
                 }
                 else
                 {
-                    actualplayer = (actualplayer + 1) % Players.Count();
+                    actualplayer = (actualplayer + 1) % Players.Count;
                     CurrentRound--;
                 }
             }
-            else if (pinsScore == NumberOfPins)
+            else if (pinsScore == NumberOfPins) // Check if the player scores a strike.
             {
+                // Handle strike logic and set the bonus roll if necessary.
                 Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
-                if (CurrentRound == NumberOfRounds-2)
+                if (CurrentRound == NumberOfRounds - 2)
                 {
                     Players[actualplayer].BonusRoll = SpecialRoll.Strike;
                 }
@@ -131,30 +140,37 @@ public class Game
                 else
                 {
                     isRoll1 = true;
-                    actualplayer = (actualplayer + 1) % Players.Count();
+                    actualplayer = (actualplayer + 1) % Players.Count;
                 }
             }
             else
             {
+                // If no strike, prepare for the second roll.
                 isRoll1 = false;
             }
         }
         else
         {
+            // Handle the logic for the second roll of a player's turn.
             Players[actualplayer].Score_2 = pinsScore;
             Players[actualplayer].Roll1(NumberOfPins, CurrentRound);
-            if (CurrentRound == NumberOfRounds-2 && Players[actualplayer].Score_1 + Players[actualplayer].Score_2 == NumberOfPins)
+
+            // Check if the player scores a spare in the second-last round.
+            if (CurrentRound == NumberOfRounds - 2 && Players[actualplayer].Score_1 + Players[actualplayer].Score_2 == NumberOfPins)
             {
                 Players[actualplayer].BonusRoll = SpecialRoll.Spare;
                 isRoll1 = true;
             }
             else
             {
+                // Reset for the next player's turn.
                 isRoll1 = true;
-                actualplayer = (actualplayer + 1) % Players.Count();
+                actualplayer = (actualplayer + 1) % Players.Count;
             }
         }
-        if (CurrentRound == NumberOfRounds -1 && isRoll1 && Players.Count!=1 && Players[^1].Rounds[^1].RoundScore==String.Empty)
+
+        // Handle the transition to a new round in specific cases.
+        if (CurrentRound == NumberOfRounds - 1 && isRoll1 && Players.Count != 1 && Players[^1].Rounds[^1].RoundScore == String.Empty)
         {
             CurrentRound--;
         }
@@ -163,7 +179,6 @@ public class Game
             CurrentRound++;
         }
 
-       
-        return this;
+        return this; // Return the updated game state.
     }
 }
