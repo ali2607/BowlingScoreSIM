@@ -1,24 +1,24 @@
 ﻿namespace BowlingScoreInterface.Models;
 
 /// <summary>
-/// Class to represent the model of the Leaderboard page.
+/// Represents the model for the leaderboard page in a bowling game.
+/// This model holds an array of player names and their scores, used for ranking and display purposes.
 /// </summary>
 public class Leaderboard
 {
-    public List<string> Players { get; set; }
-    public int NumberOfRounds { get; set; }
-    public int NumberOfPins { get; set; }
-    public int actualplayer { get; set; }
+    /// <summary>
+    /// An array of tuples containing player names and their corresponding scores.
+    /// This array is used to display the leaderboard rankings of the players.
+    /// Each tuple consists of a player's name and their total score in the game.
+    /// </summary>
+    public (string Name, int Score)[] PlayerLeaderboard { get; set; }
 
-    public Leaderboard(Leaderboard sartingParameter)
+    /// <summary>
+    /// Initializes a new instance of the Leaderboard class with a specific array of player names and scores.
+    /// </summary>
+    /// <param name="playerLeaderboard">An array of tuples with player names and scores.</param>
+    public Leaderboard((string, int)[] playerLeaderboard)
     {
-        Players = sartingParameter.Players;
-        NumberOfRounds = sartingParameter.NumberOfRounds;
-    }
-
-    public Leaderboard() : this(new Leaderboard())
-    {
-        Players = new List<string>() { "Player 1" };
-        NumberOfRounds = 1;
+        PlayerLeaderboard = playerLeaderboard;
     }
 }

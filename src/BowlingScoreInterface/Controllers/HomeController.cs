@@ -98,10 +98,6 @@ namespace BowlingScoreInterface.Controllers
         /// <returns>Redirect to the Game Page</returns>
         public IActionResult StartGame(string home, int rounds, int pins)
         {
-
-            //TODO: replace this logic with the logic to start the game.
-            //this is just a placeholder.
-            //this method should create an instance of the game class with a HomeModel as a parameter and pass it to the next view that will handle the actual game.
             Home model;
             try
             {
@@ -115,12 +111,6 @@ namespace BowlingScoreInterface.Controllers
             model.NumberOfPins = pins;
             Game game = new(model);
             return RedirectToAction(nameof(Index),nameof(Game),new {serializedGame = JsonSerializer.Serialize(game) });
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

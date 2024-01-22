@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 
 namespace BowlingScoreInterface.Models;
 
@@ -15,14 +15,12 @@ public class Home
     /// <summary>
     /// List of players.
     /// </summary>
-    public List<string> Players { get; set; } = new List<string>();
+    public List<string> Players { get; set; } = [];
 
     /// <summary>
     /// amount of rounds.
     /// </summary>
-    public int NumberOfRounds { get; set; } = 1;
-
-    
+    public int NumberOfRounds { get; set; } = 10;    
 
     /// <summary>
     /// Limit of players.
