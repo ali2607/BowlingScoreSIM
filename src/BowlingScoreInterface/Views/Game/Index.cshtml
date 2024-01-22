@@ -29,9 +29,18 @@
                     }
                 }
                 <!-- Bonus Round -->
-                <div class="col border-custom border-custom round-cells">
-                    <label class="d-block mx-auto text-center">Bonus</label>
-                </div>
+                if (Model.CurrentRound == Model.NumberOfRounds-1) // Color Bonus Round
+                {
+                    <div class="col border-custom border-custom round-cells current-round">
+                        <label class="d-block mx-auto text-center">Bonus</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="col border-custom border-custom round-cells">
+                        <label class="d-block mx-auto text-center">Bonus</label>
+                    </div>
+                }
             }
             else{                
                 <!-- Name Rows -->
@@ -47,8 +56,7 @@
                 }
                 <!-- Scores Columns and Rows -->
                 @for (int j = 0; j < Model.NumberOfRounds-1; j++)
-                {
-                    
+                {                    
                     <div class="col border-custom border-custom">
                         <div class="d-flex justify-content-between">
                             <label class="d-inline ms-2">@Model.Players[i].Rounds[j].FirstRound</label>
