@@ -1,6 +1,6 @@
 # Polytech Paris-Saclay -- APP4 Info -- Software Quality Project 
 # Website link :
-## WARNING : Du aux ressources limités de l'hébergeur web, le site crash quand il y a trop de joueurs (+ de 2), malgré que le code initial fonctionne parfaitement (pour 10 joueurs).
+## WARNING : Du aux ressources limités de l'hébergeur web, le site crash quand il y a trop de joueurs (+ de 2), malgré que le code initial fonctionne parfaitement en local (pour 10 joueurs).
       https://bowlingscoreinterface20240122015529.azurewebsites.net/
 ## BowlingScoreSIMU: A bowling score calculator with a user-friendly GUI  
 # Group Team
