@@ -19,7 +19,10 @@ namespace BowlingScoreInterface.Controllers
             }
             return View(new Leaderboard(playerLeaderboard));
         }
-
+        /// <summary>
+        /// Restart the game.
+        /// </summary>
+        /// <returns>Return the Initial home view</returns>
         public IActionResult Restart()
         {
             return RedirectToAction("Index", "Home");

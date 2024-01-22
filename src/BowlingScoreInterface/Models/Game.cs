@@ -4,17 +4,44 @@ using System.Runtime.CompilerServices;
 namespace BowlingScoreInterface.Models;
 
 /// <summary>
-/// Class to represent the model of the game page.
+/// Represents the state and behavior of a bowling game.
 /// </summary>
 public class Game
 {
-    public int CurrentRound {  get; set; }
+    /// <summary>
+    /// The current round of the game.
+    /// </summary>
+    public int CurrentRound { get; set; }
+
+    /// <summary>
+    /// The list of players participating in the game.
+    /// </summary>
     public List<Player> Players { get; set; }
+
+    /// <summary>
+    /// The total number of rounds in the game.
+    /// </summary>
     public int NumberOfRounds { get; set; }
+
+    /// <summary>
+    /// The total number of pins set up at the start of each round.
+    /// </summary>
     public int NumberOfPins { get; set; }
+
+    /// <summary>
+    /// The index of the current player who is rolling.
+    /// </summary>
     public int actualplayer { get; set; }
+
+    /// <summary>
+    /// Indicates if the current roll is the first roll of the player's turn.
+    /// </summary>
     public bool isRoll1 { get; set; }
 
+    /// <summary>
+    /// Constructor that initializes the game based on starting parameters.
+    /// </summary>
+    /// <param name="startingParameter">The initial configuration of the game derived from the home page.</param>
     public Game(Home startingParameter)
     {
         NumberOfRounds = startingParameter.NumberOfRounds + 1;
@@ -28,8 +55,21 @@ public class Game
         isRoll1 = true;
         actualplayer = 0;
     }
+
+    /// <summary>
+    /// Default constructor for the Game class.
+    /// </summary>
     public Game() {}
 
+    /// <summary>
+    /// Constructor that initializes a new instance of the Game class with detailed game parameters.
+    /// </summary>
+    /// <param name="currentRound">The current round number.</param>
+    /// <param name="players">The list of players in the game.</param>
+    /// <param name="numberOfRounds">The total number of rounds in the game.</param>
+    /// <param name="numberOfPins">The number of pins in a round.</param>
+    /// <param name="actualplayer">The index of the current player.</param>
+    /// <param name="isRoll1">Indicates if the current roll is the first roll of the player's turn.</param>
     public Game(int currentRound, List<Player> players, int numberOfRounds, int numberOfPins, int actualplayer, bool isRoll1)
     {
         CurrentRound = currentRound;
@@ -41,10 +81,14 @@ public class Game
     }
 
     /// <summary>
-    /// Method to update the game.
+    /// Updates the game state after a player rolls the ball.
     /// </summary>
-    /// <param name="pinsScore">the number of pins that fell in this roll</param>
-    /// <returns>the updated Game</returns>
+    /// <param name="pinsScore">The number of pins knocked down in this roll.</param>
+    /// <returns>The updated Game instance reflecting the new state after the roll.</returns>
+    /// <remarks>
+    /// The update handles the transition between rolls and players, as well as the transition to a new round.
+    /// It also applies special rules for the final round of the game.
+    /// </remarks>
     public Game Update(int pinsScore)
     {
         if (CurrentRound == NumberOfRounds - 1)

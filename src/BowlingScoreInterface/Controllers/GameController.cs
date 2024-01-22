@@ -25,6 +25,13 @@ namespace BowlingScoreInterface.Controllers
             return View(game);
         }
 
+        /// <summary>
+        /// Method to add update the game with the number of pins taken.
+        /// </summary>
+        /// <param name="serializedGame">the serialized Model</param>
+        /// <param name="pinsScore"> the amount of pins taken</param>
+        /// <returns>Return a view with the updated model or the leaderboard view</returns>
+        /// <exception cref="JsonException">If the deserialization had a problem</exception>
         public IActionResult PinsTaken(string serializedGame, int pinsScore)
         {
             Game? game = new();

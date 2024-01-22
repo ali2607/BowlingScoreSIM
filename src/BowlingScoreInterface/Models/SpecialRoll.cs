@@ -1,4 +1,8 @@
 ﻿namespace BowlingScoreInterface.Models;
+
+/// <summary>
+/// The different types of roll that we can achieve
+/// </summary>
 public enum SpecialRoll
 {
     Default = 0,

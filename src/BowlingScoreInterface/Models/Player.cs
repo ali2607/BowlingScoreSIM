@@ -3,19 +3,53 @@ using System.Text.Json.Serialization;
 
 namespace BowlingScoreInterface.Models;
 
+/// <summary>
+/// Represents a player in the bowling game.
+/// </summary>
 public class Player
 {
+    /// <summary>
+    /// The name of the player.
+    /// </summary>
     public string Name { get; private set; }
-    public List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores { get;internal set; }
+
+    /// <summary>
+    /// A list that stores tuples of each roll's scores and special roll indicators.
+    /// </summary>
+    public List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> Tab2DScores { get; internal set; }
+
+    /// <summary>
+    /// The list of rounds with their respective scores and special roll indicators.
+    /// </summary>
     public List<Round> Rounds { get; private set; }
 
-    public int Score_1 { get; set;}
+    /// <summary>
+    /// Score for the first roll in a frame.
+    /// </summary>
+    public int Score_1 { get; set; }
+
+    /// <summary>
+    /// Score for the second roll in a frame, if applicable.
+    /// </summary>
     public int Score_2 { get; set; }
+
+    /// <summary>
+    /// Total score accumulated by the player.
+    /// </summary>
     public int TotalScore { get; set; }
-    public Boolean Problem { get; set; } = true;
+
+    /// <summary>
+    /// The type of special roll (strike, spare, etc.) achieved by the player.
+    /// </summary>
     public SpecialRoll BonusRoll { get; set; }
 
- 
+    public bool Problem { get; set; } = true;
+
+    /// <summary>
+    /// Constructor for initializing a player with a name and the number of rounds.
+    /// </summary>
+    /// <param name="name">The name of the player.</param>
+    /// <param name="NumberOfRounds">The number of rounds in the game.</param>
     public Player(string name, int NumberOfRounds)
     {
         Name = name;
@@ -29,6 +63,15 @@ public class Player
             Rounds.Add(new());
         }
     }
+    /// <summary>
+    /// Constructor for initializing a player with detailed scores and rolls.
+    /// </summary>
+    /// <param name="name">The name of the player.</param>
+    /// <param name="tab2DScores">A list of tuples representing the player's scores and special rolls.</param>
+    /// <param name="rounds">A list of rounds for the player.</param>
+    /// <param name="Score_1">Score of the first roll.</param>
+    /// <param name="Score_2">Score of the second roll.</param>
+    /// <param name="totalScore">Total score of the player.</param>
     public Player(string name, List<(int Roll1, int? Roll2, SpecialRoll specialRoll)> tab2DScores, List<Round> rounds, int Score_1, int Score_2, int totalScore)
     {
         Name = name;
@@ -38,6 +81,12 @@ public class Player
         this.Score_2 = Score_2;
         TotalScore = totalScore;
     }
+
+    /// <summary>
+    /// Constructor used for deserialization from JSON.
+    /// </summary>
+    /// <param name="name">The name of the player.</param>
+    /// <param name="rounds">The rounds associated with the player.</param>
     [JsonConstructor]
     public Player(string name, List<Round> rounds)
     {
@@ -50,6 +99,11 @@ public class Player
         TotalScore = 0;
     }
 
+    /// <summary>
+    /// Updates the round's information for the player based on the current roll scores.
+    /// </summary>
+    /// <param name="NumberOfPins">The total number of pins for a strike.</param>
+    /// <param name="CurrentRound">The current round number.</param>
     public void UpdateRounds(int NumberOfPins, int CurrentRound)
     {
         if (Score_1 < NumberOfPins)
@@ -65,6 +119,11 @@ public class Player
             throw new Exception("Problem! Incorrect score!");
         }
     }
+    /// <summary>
+    /// Handles the logic for the first roll in a round, including scoring and special roll assessment.
+    /// </summary>
+    /// <param name="NumberOfPins">The total number of pins for a strike.</param>
+    /// <param name="CurrentRound">The current round number.</param>
     public void Roll1(int NumberOfPins, int CurrentRound)
     {
         if (Score_1 < NumberOfPins)
@@ -88,6 +147,12 @@ public class Player
         else
             throw new Exception("Problem! Incorrect score!");
     }
+
+    /// <summary>
+    /// Handles the logic for the second roll in a round, including scoring and special roll assessment.
+    /// </summary>
+    /// <param name="NumberOfPins">The total number of pins for a strike or spare.</param>
+    /// <param name="CurrentRound">The current round number.</param>
     public void Roll2(int NumberOfPins, int CurrentRound)
     {
         TotalScore += Score_1 + Score_2;
@@ -110,6 +175,12 @@ public class Player
 
         CalculateRoundScore(NumberOfPins, CurrentRound);
     }
+
+    /// <summary>
+    /// Calculates the round score for the player, taking into account the special rolls like strikes and spares from previous rounds.
+    /// </summary>
+    /// <param name="NumberOfPins">The total number of pins for a strike.</param>
+    /// <param name="CurrentRound">The current round number.</param>
     public void CalculateRoundScore(int NumberOfPins, int CurrentRound)
     {
 

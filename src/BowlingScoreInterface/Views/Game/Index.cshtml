@@ -29,9 +29,18 @@
                     }
                 }
                 <!-- Bonus Round -->
-                <div class="col border-custom border-custom round-cells">
-                    <label class="d-block mx-auto text-center">Bonus</label>
-                </div>
+                if (Model.CurrentRound == Model.NumberOfRounds - 1) // Color Bonus Round
+                {
+                    <div class="col border-custom border-custom round-cells current-round">
+                        <label class="d-block mx-auto text-center">Bonus</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="col border-custom border-custom round-cells">
+                        <label class="d-block mx-auto text-center">Bonus</label>
+                    </div>
+                }
             }
             else{                
                 <!-- Name Rows -->
@@ -117,19 +126,20 @@
     <!-- script to change buttons color -->
     <script>
         function ColorButtons(clickedButton, indButton) {
+            @{
+                int pins;
+                if (Model.Players[Model.actualplayer].Rounds[^1].FirstRound == "X")
+                {
+                    pins = Model.NumberOfPins;
+                }
+                else
+                {
+                    pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;
+                }
+            }
 
             // Pins remaining
-            var pins = @(Model.isRoll1 ? @Model.NumberOfPins : @Model.NumberOfPins - @Model.Players[Model.actualplayer].Score_1);
-
-            // if (Model.Players[Model.actualplayer].Rounds[^1].FirstRound == "X")
-            // {
-            //     pins = Model.NumberOfPins;
-            // }
-            // else
-            // {
-            //     pins = Model.isRoll1 ? Model.NumberOfPins : Model.NumberOfPins - Model.Players[Model.actualplayer].Score_1;
-            // }
-
+            var pins = @pins;
             for (var i = 1; i <= pins; i++) {
                 var pinButton = document.getElementById('button' + i);
 
