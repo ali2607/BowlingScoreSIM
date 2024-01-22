@@ -3,7 +3,7 @@
       https://bowlingscoreinterface20240122015529.azurewebsites.net/
 ## BowlingScoreSIMU: A bowling score calculator with a user-friendly GUI  
 # Group Team
-Léo TRINQUET - Elie FARES - Ali MAHMOUD - Denis CHAPUT - Kamil DAMACHE
+Léo TRINQUET - Elie FARES - Ali MAHMOUD - Denis CHAPUT - Kamil DAMACHE - Racim ZIANI
 # Used Technologie 
   - __Frontend__: ASP (.NET)
   - __Backend__: C#
@@ -18,4 +18,5 @@ __Tools__: Github - Visual Studio
   - __Ali__: .NET
   - __Denis__: Continuous Integration + C#
   - __Kamil__: .NET
+  - __Racim__: Web Development
 # Estimated Time: 20 hours
