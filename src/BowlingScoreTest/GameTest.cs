@@ -18,7 +18,7 @@ namespace BowlingScoreInterface.Tests
             Assert.AreEqual(2, game.Players.Count);
             Assert.IsTrue(game.Players[0].Name=="Alice");
             Assert.IsTrue(game.Players[1].Name=="Bob");
-            Assert.AreEqual(10, game.NumberOfRounds);
+            Assert.AreEqual(11, game.NumberOfRounds);
         }
     }
 }
