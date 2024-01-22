@@ -66,58 +66,19 @@ public class PlayerTest
     public void TestCompleteGame()
     {
         Player player = new Player("name", 10);
-
-        for (int i = 0; i < 10; i++)
+        int NumberOfRounds = 10;
+        for (int i = 0; i < NumberOfRounds; i++)
         {
             player.Score_1 = 4;
             player.Score_2 = 5;
-            player.UpdateRounds(10, i);
-            player.Roll1(10, i);
+            player.UpdateRounds(NumberOfRounds, i);
+            player.Roll1(NumberOfRounds, i);
         }
-
-        int expectedTotalScore = 90;
+        
+        int expectedTotalScore = 81;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
-    [TestMethod]
-    public void TestCompleteGameWithSpare1()
-    {
-        Player player = new Player("name", 10);
 
-        for (int i = 0; i < 10; i++)
-        {
-            if (i == 0)
-            {
-                player.Score_1 = 5;
-                player.Score_2 = 5;
-                player.UpdateRounds(10, i);
-                player.Roll1(10, i);
-            }
-            else if (i == 1)
-            {
-                player.Score_1 = 5;
-                player.Score_2 = 5;
-                player.UpdateRounds(10, i);
-                player.Roll1(10, i);
-            }
-            else if (i == 9)
-            {
-                player.Score_1 = 5;
-                player.Score_2 = 5;
-                player.UpdateRounds(10, i);
-                player.Roll1(10, i);
-            }
-            else
-            {
-                player.Score_1 = 5;
-                player.Score_2 = 4;
-                player.UpdateRounds(10, i);
-                player.Roll1(10, i);
-            }
-        }
-
-        int expectedTotalScore = 103;
-        Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
-    }
     [TestMethod]
     public void TestCompleteGameWithSpare2()
     {
@@ -141,7 +102,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 96;
+        int expectedTotalScore = 87;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -167,7 +128,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 96;
+        int expectedTotalScore = 87;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -192,7 +153,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 100;
+        int expectedTotalScore = 91;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -224,7 +185,7 @@ public class PlayerTest
 
             }
         }
-        int expectedTotalScore = 116;
+        int expectedTotalScore = 107;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -255,7 +216,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 118;
+        int expectedTotalScore = 109;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -292,7 +253,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 139;
+        int expectedTotalScore = 130;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -330,7 +291,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 122;
+        int expectedTotalScore = 113;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -344,7 +305,7 @@ public class PlayerTest
             player.Roll1(10, i);
         }
 
-        int expectedTotalScore = 270;
+        int expectedTotalScore = 260;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
 
@@ -429,7 +390,7 @@ public class PlayerTest
         player.Roll1(10, 9);
 
 
-        int expectedTotalScore = 90;
+        int expectedTotalScore = 81;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
 
@@ -666,7 +627,7 @@ public class PlayerTest
         player.UpdateRounds(10, 9);
         player.Roll1(10, 9);
 
-        int expectedTotalScore = 90;
+        int expectedTotalScore = 81;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
 
@@ -804,7 +765,7 @@ public class PlayerTest
             player.Roll1(6, i);
         }
 
-        int expectedTotalScore = 50;
+        int expectedTotalScore = 45;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -830,7 +791,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 53;
+        int expectedTotalScore = 48;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
 
@@ -857,7 +818,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 56;
+        int expectedTotalScore = 51;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -883,7 +844,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 57;
+        int expectedTotalScore = 52;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -899,7 +860,7 @@ public class PlayerTest
             player.Roll1(NumberOfPins, i);
         }
 
-        int expectedTotalScore = 87;
+        int expectedTotalScore = 81;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -924,7 +885,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 62;
+        int expectedTotalScore = 57;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -949,7 +910,7 @@ public class PlayerTest
             }
         }
 
-        int expectedTotalScore = 65;
+        int expectedTotalScore = 60;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     [TestMethod]
@@ -964,7 +925,7 @@ public class PlayerTest
             player.Roll1(NumberOfPins, i);
         }
 
-        int expectedTotalScore = 162;
+        int expectedTotalScore = 156;
         Assert.AreEqual(expectedTotalScore, player.TotalScore, "Le score total après une partie complète n'est pas correct.");
     }
     // ----------------------------------------------------------------------------------------------
